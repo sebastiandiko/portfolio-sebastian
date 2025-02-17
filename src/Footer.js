@@ -12,7 +12,7 @@ const FooterContainer = styled.footer`
 const Footer = () => {
   return (
     <FooterContainer>
-      <p>© 2024 Mi Nombre. Todos los derechos reservados.</p>
+      <p>© 2025 Sebastian Dikowiec. Todos los derechos reservados.</p>
     </FooterContainer>
   );
 };

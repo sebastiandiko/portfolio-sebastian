@@ -1,47 +1,48 @@
-// src/Experience.js
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const ExperienceSection = styled.section`
-  background-color: #2a2a2a;
+  background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
   color: #ffffff;
   text-align: center;
-  padding: 80px 0;
+  padding: 100px 20px;
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2.5rem;
-  color: #00ff00;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  color: #00ff88;
   margin-bottom: 50px;
 `;
 
 const ExperienceGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  justify-content: center;
   gap: 30px;
-  padding: 0 20px;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
 `;
 
 const ExperienceCard = styled(motion.div)`
   background-color: #1a1a1a;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 30px;
+  border-radius: 15px;
   text-align: left;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 320px;
+  box-shadow: 0px 4px 10px rgba(0, 255, 136, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 
   &:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+    box-shadow: 0px 6px 15px rgba(0, 255, 136, 0.4);
   }
 `;
 
 const JobTitle = styled.h3`
-  font-size: 1.5rem;
-  color: #00ff00;
+  font-size: 1.4rem;
+  color: #00ff88;
   margin-bottom: 10px;
 `;
 
@@ -54,29 +55,24 @@ const Company = styled.h4`
 const Description = styled.p`
   font-size: 1rem;
   color: #ffffff;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-
-  ${ExperienceCard}:hover & {
-    opacity: 1;
-  }
+  opacity: 0.85;
 `;
 
 const experiences = [
   {
-    jobTitle: 'Desarrollador Full Stack',
-    company: 'Tech Solutions',
-    description: 'Desarrollé aplicaciones web modernas utilizando React y Node.js.',
+    jobTitle: 'Desarrollador de Software',
+    company: 'DROGUERÍA JUFEC S.A',
+    description: 'Desarrollé software interno con PHP, Laravel y SQL Server en entornos Ubuntu, automatizando tareas con Bash.',
   },
   {
-    jobTitle: 'Ingeniero de Software',
-    company: 'SoftCorp',
-    description: 'Optimicé el rendimiento del sistema backend.',
+    jobTitle: 'Soporte de Aplicación',
+    company: 'CALIFICADAS',
+    description: 'Mantenimiento y soporte de la app con Angular, TypeScript y SQL Server. Metodología Scrumban. Actualmente trabajo aquí.',
   },
   {
-    jobTitle: 'Desarrollador Frontend',
-    company: 'Creative Agency',
-    description: 'Diseñé interfaces de usuario interactivas.',
+    jobTitle: 'Desarrollador Freelance',
+    company: 'Proyectos Independientes',
+    description: 'Desarrollo de apps con React y Flutter, análisis de datos con SQL. Enfocado en soluciones personalizadas para clientes.',
   },
 ];
 
@@ -94,8 +90,8 @@ const Experience = () => {
         {experiences.map((experience, index) => (
           <ExperienceCard
             key={index}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 + index * 0.1 }}
           >
             <JobTitle>{experience.jobTitle}</JobTitle>
