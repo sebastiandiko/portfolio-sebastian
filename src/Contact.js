@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 import cv from './assets/cv-sebastian-dikowiec.pdf';
 
 const ContactSection = styled.section`
@@ -48,7 +49,7 @@ const SocialLinks = styled.div`
   justify-content: center;
   gap: 30px;
   margin-bottom: 30px;
-  
+
   a {
     color: #ffffff;
     font-size: clamp(1.5rem, 4vw, 2rem);
@@ -80,15 +81,17 @@ const CVButton = styled.a`
 `;
 
 const Contact = () => {
+  const { t } = useTranslation();
+
   return (
     <ContactSection>
-      <Title>Contacto</Title>
+      <Title>{t('contactTitle')}</Title>
       <ContactInfo>
         <p>
-          Email:{' '}
+          {t('emailLabel')}: {' '}
           <a href="mailto:sebadikow@gmail.com">sebadikow@gmail.com</a>
         </p>
-        <p>Teléfono: +543735529679</p>
+        <p>{t('phoneLabel')}: +543735529679</p>
       </ContactInfo>
       <SocialLinks>
         <a
@@ -107,9 +110,8 @@ const Contact = () => {
         </a>
       </SocialLinks>
       <CVButton href={cv} download>
-        Descargar CV
+        {t('downloadCV')}
       </CVButton>
-
     </ContactSection>
   );
 };

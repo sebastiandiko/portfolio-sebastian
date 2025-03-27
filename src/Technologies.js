@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FaReact, FaJs, FaGitAlt } from 'react-icons/fa';
 import { SiPython, SiPostgresql, SiMongodb, SiAmazonwebservices, SiPowerbi } from 'react-icons/si';
 import { DiTerminal, DiJava } from 'react-icons/di';
+import { useTranslation } from 'react-i18next';
 
 const TechSection = styled.section`
   background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
@@ -69,6 +70,8 @@ const TechCard = styled(motion.div)`
 `;
 
 const Technologies = () => {
+  const { t } = useTranslation();
+
   const techs = [
     { name: 'React', icon: <FaReact /> },
     { name: 'JavaScript', icon: <FaJs /> },
@@ -96,7 +99,7 @@ const Technologies = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        Tecnologías que Utilizo
+        {t('technologiesTitle')}
       </Title>
       <TechRow>
         {techs.map((tech, index) => (

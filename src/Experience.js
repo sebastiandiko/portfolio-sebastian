@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const ExperienceSection = styled.section`
   background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
@@ -58,25 +59,10 @@ const Description = styled.p`
   opacity: 0.85;
 `;
 
-const experiences = [
-  {
-    jobTitle: 'Desarrollador de Software',
-    company: 'DROGUERÍA JUFEC S.A',
-    description: 'Desarrollé software interno con PHP, Laravel y SQL Server en entornos Ubuntu, automatizando tareas con Bash.',
-  },
-  {
-    jobTitle: 'Soporte de Aplicación',
-    company: 'CALIFICADAS',
-    description: 'Mantenimiento y soporte de la app con Angular, TypeScript y SQL Server. Metodología Scrumban. Actualmente trabajo aquí.',
-  },
-  {
-    jobTitle: 'Desarrollador Freelance',
-    company: 'Proyectos Independientes',
-    description: 'Desarrollo de apps con React y Flutter, análisis de datos con SQL. Enfocado en soluciones personalizadas para clientes.',
-  },
-];
-
 const Experience = () => {
+  const { t } = useTranslation();
+  const experiences = t('jobs', { returnObjects: true });
+
   return (
     <ExperienceSection>
       <Title
@@ -84,7 +70,7 @@ const Experience = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        Experiencia Laboral
+        {t('experienceTitle')}
       </Title>
       <ExperienceGrid>
         {experiences.map((experience, index) => (

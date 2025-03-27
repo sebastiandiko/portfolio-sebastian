@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaTerminal } from 'react-icons/fa';
-import sebastianImage from './assets/sebastian.png'; // Asegúrate de que la ruta sea correcta
+import { useTranslation } from 'react-i18next';
+import sebastianImage from './assets/sebastian.png';
 
 const AboutSection = styled.section`
   background: linear-gradient(135deg, #1a1a1a, #111);
@@ -91,6 +92,8 @@ const Paragraph = styled(motion.p)`
 `;
 
 const AboutMe = () => {
+  const { t } = useTranslation();
+
   return (
     <AboutSection>
       <Title
@@ -99,7 +102,7 @@ const AboutMe = () => {
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        Sobre Mí <Icon><FaTerminal /></Icon>
+        {t('aboutTitle')} <Icon><FaTerminal /></Icon>
       </Title>
 
       <AboutContent
@@ -124,7 +127,8 @@ const AboutMe = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-          Soy Ingeniero en Sistemas de Información con experiencia en desarrollo web y análisis de datos. Apasionado por la innovación y el aprendizaje continuo, me especializo en crear soluciones eficientes y escalables. Disfruto resolver problemas, optimizar procesos y trabajar con tecnologías modernas para aportar valor en cada proyecto.          </Paragraph>
+            {t('aboutDescription')}
+          </Paragraph>
         </TextContainer>
       </AboutContent>
     </AboutSection>
