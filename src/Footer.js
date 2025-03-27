@@ -1,6 +1,7 @@
 // src/Footer.js
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const FooterContainer = styled.footer`
   background-color: #1a1a1a;
@@ -10,9 +11,11 @@ const FooterContainer = styled.footer`
 `;
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <FooterContainer>
-      <p>© 2025 Sebastian Dikowiec. Todos los derechos reservados.</p>
+      <p>{t('footerText')}</p>
     </FooterContainer>
   );
 };

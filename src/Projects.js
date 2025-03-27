@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaLaptopCode, FaTimes } from 'react-icons/fa';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { FaLaptopCode } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 import toqqenImg from './assets/toQQen.png';
-
-// Importamos las imágenes desde src/assets
 import pp1 from './assets/etl.png';
-import p1 from './assets/p1.png';
-import p1_1 from './assets/p1-1.png';
-import p1_2 from './assets/p1-2.png';
 
 const ProjectSection = styled.section`
   background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
   color: #ffffff;
   text-align: center;
   padding: 100px 20px;
-  position: relative;
 
   @media (max-width: 768px) {
     padding: 80px 10px;
@@ -51,7 +44,6 @@ const ProjectCard = styled(motion.div)`
   box-shadow: 0px 4px 10px rgba(0, 255, 136, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  position: relative;
 
   &:hover {
     transform: scale(1.05);
@@ -86,60 +78,48 @@ const LinkButton = styled.a`
   padding: 8px 16px;
   border-radius: 5px;
   text-decoration: none;
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
   font-weight: bold;
   transition: background-color 0.3s ease;
-  display: inline-block;
-  margin-top: 10px;
 
   &:hover {
     background-color: #00d800;
   }
 `;
 
-const projects = [
-  {
-    title:
-      'ETL con Python y SQL: Integración y Transformación de Datos a Gran Escala',
-    description:
-      'Implementé un pipeline ETL que extrae datos desde una API o un archivo CSV de gran tamaño, los procesa y transforma utilizando Pandas, y finalmente los carga en una base de datos PostgreSQL. La solución automatiza el flujo de datos, lo que resulta ideal para entornos de Big Data y análisis de información.',
-    image: pp1,
-    images: [p1, p1_1, p1_2],
-    link: 'https://github.com/sebastiandiko/ETL-con-Python-y-SQL',
-  },
-  {
-    title: 'Toqqen - Desarrollo Freelance de Apps y Webs',
-    description:
-      'Toqqen es un emprendimiento freelance donde ofrezco desarrollar aplicaciones PWA y sitios web personalizados para negocios, empresas, emprendedores, etc.',
-    image: toqqenImg,
-    images: [],
-    link: 'https://www.devtoqqen.com',
-  },
+const images = [pp1, toqqenImg];
+const links = [
+  'https://github.com/sebastiandiko/ETL-con-Python-y-SQL',
+  'https://www.devtoqqen.com',
 ];
 
 const Projects = () => {
+  const { t, i18n } = useTranslation();
+
+  // Esto asegura que React escuche los cambios del idioma y re-renderice:
+  const projects = t('projects', { returnObjects: true, lng: i18n.language });
+
   return (
-    <ProjectSection>
+    <ProjectSection key={i18n.language}>
       <Title
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        Mis Proyectos <FaLaptopCode />
+        {t('projectsTitle')} <FaLaptopCode />
       </Title>
       <ProjectGrid>
         {projects.map((project, index) => (
           <ProjectCard key={index}>
-            <ProjectImage src={project.image} alt={project.title} />
+            <ProjectImage src={images[index]} alt={project.title} />
             <ProjectTitle>{project.title}</ProjectTitle>
             <Description>{project.description}</Description>
-            {project.link && (
+            {links[index] && (
               <LinkButton
-                href={project.link}
+                href={links[index]}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Link
+                {t('linkButton')}
               </LinkButton>
             )}
           </ProjectCard>
