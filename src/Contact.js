@@ -3,7 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
-import cv from './assets/cv-sebastian-dikowiec.pdf';
+import cvES from './assets/Sebastian Dikowiec - Currículum - Español.pdf';
+import cvEN from './assets/Sebastian Dikowiec - CV - English.pdf';
 
 const ContactSection = styled.section`
   background-color: #0d0d0d;
@@ -80,6 +81,13 @@ const CVButton = styled.a`
   }
 `;
 
+const CVButtonsContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
 const Contact = () => {
   const { t } = useTranslation();
 
@@ -88,8 +96,7 @@ const Contact = () => {
       <Title>{t('contactTitle')}</Title>
       <ContactInfo>
         <p>
-          {t('emailLabel')}: {' '}
-          <a href="mailto:sebadikow@gmail.com">sebadikow@gmail.com</a>
+          {t('emailLabel')}: <a href="mailto:sebadikow@gmail.com">sebadikow@gmail.com</a>
         </p>
         <p>{t('phoneLabel')}: +543735529679</p>
       </ContactInfo>
@@ -109,9 +116,14 @@ const Contact = () => {
           <FaLinkedin />
         </a>
       </SocialLinks>
-      <CVButton href={cv} download>
-        {t('downloadCV')}
-      </CVButton>
+      <CVButtonsContainer>
+        <CVButton href={cvES} download>
+          CV - Español
+        </CVButton>
+        <CVButton href={cvEN} download>
+          CV - English
+        </CVButton>
+      </CVButtonsContainer>
     </ContactSection>
   );
 };
