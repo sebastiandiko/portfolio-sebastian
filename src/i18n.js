@@ -7,7 +7,7 @@ i18n
     resources: {
       es: {
         translation: {
-          "title": "Sebastián Dikowiec",
+          "title": "Sebastian Dikowiec",
           "subtitle": "Ingeniero en Sistemas de Información",
           "technologiesTitle": "Tecnologías que Utilizo",
           "experienceTitle": "Experiencia Laboral",
@@ -52,7 +52,7 @@ i18n
       },
       en: {
         translation: {
-          "title": "Sebastián Dikowiec",
+          "title": "Sebastian Dikowiec",
           "subtitle": "Information Systems Engineer",
           "technologiesTitle": "Technologies I Use",
           "experienceTitle": "Work Experience",

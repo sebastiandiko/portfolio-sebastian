@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
-import cvES from './assets/Sebastian Dikowiec - Currículum - Español.pdf';
+import cvES from './assets/Sebastian Dikowiec - CV - Español.pdf';
 import cvEN from './assets/Sebastian Dikowiec - CV - English.pdf';
 
 const ContactSection = styled.section`
