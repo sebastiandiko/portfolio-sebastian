@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import background from './assets/backround.jpg';
+import MatrixRain from './MatrixRain';
 
 const HeaderContainer = styled.header`
   height: 100vh;
@@ -12,17 +12,22 @@ const HeaderContainer = styled.header`
   align-items: center;
   position: relative;
   text-align: center;
-  background: 
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)),
-    url(${background});
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: #000000;
   overflow: hidden;
+
+  /* Gradient overlay to focus center and darken edges */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.9) 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
 `;
 
 const ContentWrapper = styled(motion.div)`
-  z-index: 2;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,6 +158,8 @@ const Header = () => {
 
   return (
     <HeaderContainer>
+      <MatrixRain />
+      
       <GlassButton onClick={toggleLanguage}>
         {i18n.language === 'es' ? 'English' : 'Español'}
       </GlassButton>
