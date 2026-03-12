@@ -29,7 +29,7 @@ const ContentWrapper = styled(motion.div)`
 `;
 
 const Title = styled(motion.h1)`
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.5rem, 8vw, 6rem);
   font-weight: 700;
   letter-spacing: -0.04em;
   margin-bottom: 20px;
@@ -37,6 +37,10 @@ const Title = styled(motion.h1)`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.1;
+
+  @media (max-width: 480px) {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
 `;
 
 const Subtitle = styled(motion.h2)`
@@ -68,6 +72,13 @@ const GlassButton = styled.button`
     background: rgba(255, 255, 255, 0.1);
     transform: translateY(-1px);
   }
+
+  @media (max-width: 480px) {
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
 `;
 
 const HintBubble = styled(motion.div)`
@@ -94,6 +105,17 @@ const HintBubble = styled(motion.div)`
     border-width: 0 8px 8px 8px;
     border-style: solid;
     border-color: transparent transparent rgba(255, 255, 255, 0.1) transparent;
+  }
+
+  @media (max-width: 480px) {
+    top: 65px;
+    right: 20px;
+    padding: 10px 15px;
+    font-size: 0.8rem;
+    
+    &::after {
+      right: 20px;
+    }
   }
 `;
 
