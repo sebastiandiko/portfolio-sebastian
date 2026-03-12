@@ -7,66 +7,90 @@ import { DiTerminal, DiJava } from 'react-icons/di';
 import { useTranslation } from 'react-i18next';
 
 const TechSection = styled.section`
-  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-  color: #ffffff;
+  background-color: #000000;
+  color: #f5f5f7;
   text-align: center;
-  padding: 100px 20px;
+  padding: 120px 20px;
+  position: relative;
 
   @media (max-width: 768px) {
-    padding: 80px 10px;
+    padding: 80px 15px;
   }
 `;
 
-const Title = styled(motion.h2)`
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  color: #00ff88;
-  margin-bottom: 50px;
+const ContentWrapper = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
 `;
 
-const TechRow = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding-bottom: 10px;
+const Title = styled(motion.h2)`
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 60px;
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
 
-  &::-webkit-scrollbar {
-    display: none;
+const TechGrid = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  justify-content: center;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
 const TechCard = styled(motion.div)`
-  background-color: #1a1a1a;
-  padding: 25px;
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 30px 20px;
+  border-radius: 24px;
   text-align: center;
-  box-shadow: 0px 4px 10px rgba(0, 255, 136, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
-  min-width: 130px;
 
   &:hover {
-    transform: scale(1.15);
-    box-shadow: 0px 6px 15px rgba(0, 255, 136, 0.4);
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
   }
 
   h3 {
-    margin-top: 10px;
-    font-size: 1rem;
-    color: #00ff88;
+    margin-top: 15px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #a1a1a6;
+    transition: color 0.4s ease;
   }
 
   svg {
+    color: #86868b;
+    font-size: 2.5rem;
+    transition: all 0.4s ease;
+  }
+
+  &:hover h3 {
     color: #ffffff;
-    font-size: 3rem;
-    transition: color 0.3s ease;
   }
 
   &:hover svg {
-    color: #00ff88;
+    color: #ffffff;
+    transform: scale(1.1);
   }
+`;
+
+const IconGroup = styled.div`
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Technologies = () => {
@@ -80,10 +104,10 @@ const Technologies = () => {
     { 
       name: 'SQL / NoSQL', 
       icon: (
-        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', alignItems: 'center' }}>
+        <IconGroup>
           <SiPostgresql />
           <SiMongodb />
-        </div>
+        </IconGroup>
       ) 
     },
     { name: 'Bash', icon: <DiTerminal /> },
@@ -92,28 +116,44 @@ const Technologies = () => {
     { name: 'Power BI', icon: <SiPowerbi /> }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  };
+
   return (
     <TechSection>
-      <Title
-        initial={{ opacity: 0, y: -50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        {t('technologiesTitle')}
-      </Title>
-      <TechRow>
-        {techs.map((tech, index) => (
-          <TechCard
-            key={index}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 + index * 0.1 }}
-          >
-            {tech.icon}
-            <h3>{tech.name}</h3>
-          </TechCard>
-        ))}
-      </TechRow>
+      <ContentWrapper>
+        <Title
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {t('technologiesTitle')}
+        </Title>
+        <TechGrid
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {techs.map((tech, index) => (
+            <TechCard key={index} variants={itemVariants}>
+              {tech.icon}
+              <h3>{tech.name}</h3>
+            </TechCard>
+          ))}
+        </TechGrid>
+      </ContentWrapper>
     </TechSection>
   );
 };

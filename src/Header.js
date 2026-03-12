@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import background from './assets/backround.jpg';
 
@@ -11,95 +11,99 @@ const HeaderContainer = styled.header`
   justify-content: center;
   align-items: center;
   position: relative;
-  color: #ffffff;
   text-align: center;
-  transition: opacity 0.5s ease-in-out;
   background: 
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)),
     url(${background});
   background-size: cover;
   background-position: center;
-  opacity: ${(props) => props.opacity};
+  background-attachment: fixed;
+  overflow: hidden;
+`;
+
+const ContentWrapper = styled(motion.div)`
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled(motion.h1)`
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-family: 'Fira Code', monospace;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  border-right: 2px solid rgba(255, 255, 255, 0.75);
-  overflow: hidden;
-  white-space: nowrap;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin-bottom: 20px;
+  background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
 `;
 
 const Subtitle = styled(motion.h2)`
-  font-size: clamp(1.2rem, 3vw, 2rem);
-  font-family: 'Fira Code', monospace;
-  margin-top: 10px;
-  white-space: nowrap;
-  overflow: hidden;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 400;
+  color: #86868b;
+  max-width: 600px;
+  line-height: 1.5;
 `;
 
-const LangButton = styled.button`
+const GlassButton = styled.button`
   position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background: #00ff88;
-  color: #0d0d0d;
-  border: none;
+  top: 30px;
+  right: 40px;
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5f5f7;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   cursor: pointer;
-  font-family: 'Fira Code', monospace;
-  border-radius: 8px;
-  font-weight: bold;
-  box-shadow: 0px 4px 10px rgba(0, 255, 136, 0.5);
-  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  z-index: 10;
 
   &:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 6px 15px rgba(0, 255, 136, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
   }
 `;
 
 const HintBubble = styled(motion.div)`
   position: absolute;
-  top: 70px;
-  right: 20px;
-  background: #00ff88;
-  color: #0d0d0d;
-  padding: 15px 20px;
-  border-radius: 10px;
-  font-size: 1rem;
+  top: 80px;
+  right: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f5f5f7;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 400;
   cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0px 4px 15px rgba(0,255,136,0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 10;
 
   &::after {
     content: '';
     position: absolute;
-    top: -10px;
-    right: 15px;
-    border-width: 0 10px 10px 10px;
+    top: -8px;
+    right: 32px;
+    border-width: 0 8px 8px 8px;
     border-style: solid;
-    border-color: transparent transparent #00ff88 transparent;
+    border-color: transparent transparent rgba(255, 255, 255, 0.1) transparent;
   }
 `;
 
 const Header = () => {
-  const [opacity, setOpacity] = useState(1);
   const [showHint, setShowHint] = useState(() => !localStorage.getItem('languageHintClosed'));
   const { t, i18n } = useTranslation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const newOpacity = Math.max(1 - scrollY / 500, 0);
-      setOpacity(newOpacity);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { scrollY } = useScroll();
+  
+  const y = useTransform(scrollY, [0, 500], [0, 150]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'es' ? 'en' : 'es';
@@ -111,38 +115,45 @@ const Header = () => {
     localStorage.setItem('languageHintClosed', 'true');
   };
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }
+  };
+
   return (
-    <HeaderContainer opacity={opacity}>
-      <LangButton onClick={toggleLanguage}>
-        {i18n.language === 'es' ? 'EN' : 'ES'}
-      </LangButton>
+    <HeaderContainer>
+      <GlassButton onClick={toggleLanguage}>
+        {i18n.language === 'es' ? 'English' : 'Español'}
+      </GlassButton>
 
       {showHint && (
         <HintBubble
           onClick={closeHint}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5, type: 'spring', stiffness: 120 }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
         >
-          {t('changeLanguageHint')} ✖️
+          {t('changeLanguageHint')} ✕
         </HintBubble>
       )}
 
-      <Title
-        initial={{ width: 0, opacity: 0 }}
-        animate={{ width: '100%', opacity: 1 }}
-        transition={{ duration: 2, ease: 'easeInOut' }}
-      >
-        {t('title')}
-      </Title>
-
-      <Subtitle
-        initial={{ width: 0, opacity: 0 }}
-        animate={{ width: '100%', opacity: 1 }}
-        transition={{ duration: 2, delay: 1, ease: 'easeInOut' }}
-      >
-        {t('subtitle')}
-      </Subtitle>
+      <ContentWrapper style={{ y, opacity }} variants={containerVariants} initial="hidden" animate="show">
+        <Title variants={itemVariants}>
+          {t('title')}
+        </Title>
+        <Subtitle variants={itemVariants}>
+          {t('subtitle')}
+        </Subtitle>
+      </ContentWrapper>
     </HeaderContainer>
   );
 };
