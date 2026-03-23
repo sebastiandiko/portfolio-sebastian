@@ -124,7 +124,8 @@ const TimelineDot = styled.div`
   }
 `;
 
-const ExperienceCard = styled(motion.div)`
+const ExperienceCard = styled(motion.a)`
+  text-decoration: none;
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.02);
@@ -188,6 +189,23 @@ const Company = styled.h4`
   background: rgba(34, 197, 94, 0.1);
   border-radius: 20px;
   border: 1px solid rgba(34, 197, 94, 0.2);
+`;
+
+const JobDate = styled.div`
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #22c55e;
+  margin-bottom: 15px;
+  margin-top: -5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  
+  ${ExperienceCard}:hover & {
+    color: #4ade80;
+    text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+  }
 `;
 
 const Description = styled.p`
@@ -257,11 +275,16 @@ const Experience = () => {
               }}
             >
               <TimelineDot className="timeline-dot" />
-              <ExperienceCard>
+              <ExperienceCard 
+                href={experience.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <HeaderGroup>
                   <JobTitle>{experience.jobTitle}</JobTitle>
                   <Company>{experience.company}</Company>
                 </HeaderGroup>
+                {experience.date && <JobDate>{experience.date}</JobDate>}
                 <Description>{experience.description}</Description>
               </ExperienceCard>
             </ExperienceCardContainer>

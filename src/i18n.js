@@ -23,22 +23,46 @@ i18n
           "linkButton": "Enlace",
           "jobs": [
             {
-              "jobTitle": "Desarrollador de Software",
-              "company": "DROGUERÍA JUFEC S.A",
-              "description": "Desarrollé software interno con PHP, Laravel y SQL Server en entornos Ubuntu, automatizando tareas con Bash."
+              "jobTitle": "Co-fundador",
+              "company": "SFT DEVELOPMENT",
+              "date": "Diciembre 2025 - Presente",
+              "description": "Desarrollo y gestiono proyectos TI.",
+              "link": "https://sftdevelopment.com/"
             },
             {
-              "jobTitle": "Soporte de Aplicación",
-              "company": "CALIFICADAS",
-              "description": "Mantenimiento y soporte de la app con Angular, TypeScript y SQL Server. Metodología Scrumban. Actualmente trabajo aquí."
+              "jobTitle": "Soporte Técnico y Desarrollador",
+              "company": "Calificadas SRL",
+              "date": "Septiembre 2024 - Marzo 2026",
+              "description": "Brindé soporte técnico a los usuarios y participé del desarrollo y mantenimiento de una PWA, utilizando Angular y C#.",
+              "link": "https://calificadas.com/"
             },
             {
-              "jobTitle": "Desarrollador Freelance",
-              "company": "Proyectos Independientes",
-              "description": "Desarrollo de apps con React y Flutter, análisis de datos con SQL. Enfocado en soluciones personalizadas para clientes."
+              "jobTitle": "Desarrollador de Integraciones e IA",
+              "company": "Dotscom Agency",
+              "date": "Junio 2025 - Noviembre 2025",
+              "description": "Implementé integraciones de diversas plataformas en Kommo CRM, automaticé flujos con n8n y desarrollé chatbots de IA con n8n, OpenAI, Gemini, etc.",
+              "link": "https://dotscomagency.com/"
+            },
+            {
+              "jobTitle": "Adscripto",
+              "company": "Universidad de la Cuenca del Plata",
+              "date": "Marzo 2025 - Julio 2025",
+              "description": "Di clases de diversos temas de desarrollo de producto como adscripto en la cátedra 'Introducción a la informática'.",
+              "link": "https://www.ucp.edu.ar/"
+            },
+            {
+              "jobTitle": "Desarrollador Web",
+              "company": "JUFEC S.A",
+              "date": "Julio 2023 - Agosto 2024",
+              "description": "Desarrollé aplicaciones web con PHP (Laravel), desarrollé consultas e integraciones con SQL. Participé en la gestión de proyectos con un enfoque de ingeniería de software.",
+              "link": "https://www.jufecsa.com/"
             }
           ],
           "projects": [
+            {
+              "title": "GetPass",
+              "description": "Ticketera que facilita la compra y venta de entradas online. Desarrollamos una plataforma integral, rápida y segura diseñada para simplificar el acceso a tus eventos favoritos y potenciar el alcance de los organizadores."
+            },
             {
               "title": "ETL con Python y SQL: Integración y Transformación de Datos a Gran Escala",
               "description": "Implementé un pipeline ETL que extrae datos desde una API o un archivo CSV de gran tamaño, los procesa y transforma utilizando Pandas, y finalmente los carga en una base de datos PostgreSQL. La solución automatiza el flujo de datos, lo que resulta ideal para entornos de Big Data y análisis de información."
@@ -68,22 +92,46 @@ i18n
           "linkButton": "Link",
           "jobs": [
             {
-              "jobTitle": "Software Developer",
-              "company": "JUFEC DRUGSTORE S.A",
-              "description": "Developed internal software using PHP, Laravel, and SQL Server on Ubuntu environments, automating tasks with Bash."
+              "jobTitle": "Co-founder",
+              "company": "SFT DEVELOPMENT",
+              "date": "December 2025 - Present",
+              "description": "Develop and manage IT projects.",
+              "link": "https://sftdevelopment.com/"
             },
             {
-              "jobTitle": "Application Support",
-              "company": "CALIFICADAS",
-              "description": "Maintenance and support of the app using Angular, TypeScript, and SQL Server. Scrumban methodology. Currently working here."
+              "jobTitle": "Technical Support and Developer",
+              "company": "Calificadas SRL",
+              "date": "September 2024 - March 2026",
+              "description": "Provided technical support to users and participated in the development and maintenance of a PWA, using Angular and C#.",
+              "link": "https://calificadas.com/"
             },
             {
-              "jobTitle": "Freelance Developer",
-              "company": "Independent Projects",
-              "description": "Developed applications using React and Flutter, data analysis with SQL. Focused on customized solutions for clients."
+              "jobTitle": "Integration and AI Developer",
+              "company": "Dotscom Agency",
+              "date": "June 2025 - November 2025",
+              "description": "Implemented integrations of various platforms into Kommo CRM, automated workflows with n8n, and developed AI chatbots with n8n, OpenAI, Gemini, etc.",
+              "link": "https://dotscomagency.com/"
+            },
+            {
+              "jobTitle": "Teaching Assistant",
+              "company": "Universidad de la Cuenca del Plata",
+              "date": "March 2025 - July 2025",
+              "description": "Taught various topics on product development as a teaching assistant for the 'Introduction to Computer Science' course.",
+              "link": "https://www.ucp.edu.ar/"
+            },
+            {
+              "jobTitle": "Web Developer",
+              "company": "JUFEC S.A",
+              "date": "July 2023 - August 2024",
+              "description": "Developed web applications with PHP (Laravel), developed queries and integrations with SQL. Participated in project management with a software engineering approach.",
+              "link": "https://www.jufecsa.com/"
             }
           ],
           "projects": [
+            {
+              "title": "GetPass",
+              "description": "Ticketing platform that facilitates buying and selling tickets online. We developed a comprehensive, fast, and secure platform designed to simplify access to your favorite events and boost organizers' reach."
+            },
             {
               "title": "ETL with Python and SQL: Large Scale Data Integration and Transformation",
               "description": "I implemented an ETL pipeline that extracts data from an API or large CSV files, processes and transforms it using Pandas, and finally loads it into a PostgreSQL database. The solution automates data flow, making it ideal for Big Data and information analysis environments."
