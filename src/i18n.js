@@ -23,6 +23,13 @@ i18n
           "linkButton": "Enlace",
           "jobs": [
             {
+              "jobTitle": "Project Manager",
+              "company": "Jett Labs",
+              "date": "Marzo 2026 - Presente",
+              "description": "Gestiono proyectos desde la idea del cliente hasta la última instancia de entrega. Trabajo con enfoque ágil: planifico, coordino y acompaño cada etapa para organizar al equipo, reducir fricciones y garantizar que el proyecto llegue en tiempo y forma con el resultado esperado.",
+              "link": "https://www.jettlabs.xyz/es"
+            },
+            {
               "jobTitle": "Co-fundador",
               "company": "SFT DEVELOPMENT",
               "date": "Diciembre 2025 - Presente",
@@ -60,8 +67,20 @@ i18n
           ],
           "projects": [
             {
+              "title": "estebandiko.com",
+              "description": "Sitio web profesional para el Dr. Esteban J. Dikowiec, Médico Psiquiatra y Psicoterapeuta. Especialista en terapia cognitivo-conductual (TCC), con atención presencial en Villa Ángela y consulta online. El sitio fue desarrollado para transmitir confianza y atraer nuevos pacientes."
+            },
+            {
+              "title": "SFT Development",
+              "description": "Empresa de software que formamos con mis 3 companeros: Lauta, Tobi y Sebas. Trabajamos en equipo para desarrollar soluciones de software a medida, desde landings y web apps hasta automatizaciones e integraciones, siempre con foco en resolver problemas reales."
+            },
+            {
               "title": "GetPass",
               "description": "Ticketera que facilita la compra y venta de entradas online. Desarrollamos una plataforma integral, rápida y segura diseñada para simplificar el acceso a tus eventos favoritos y potenciar el alcance de los organizadores."
+            },
+            {
+              "title": "Vencemio",
+              "description": "Mi proyecto final de carrera, hecho en conjunto con Mati, mi compañero. Desarrollamos una PWA en Flutter llamada Vencemio para que los establecimientos puedan vender a menor costo productos próximos a vencer, reduciendo desperdicio y aportando a la sociedad y al medio ambiente."
             },
             {
               "title": "ETL con Python y SQL: Integración y Transformación de Datos a Gran Escala",
@@ -69,8 +88,9 @@ i18n
             },
             {
               "title": "Toqqen - Desarrollo Freelance de Apps y Webs",
-              "description": "Toqqen es un emprendimiento freelance donde ofrezco desarrollar aplicaciones PWA y sitios web personalizados para negocios, empresas, emprendedores, etc."
-            }
+              "description": "Toqqen fue uno de mis primeros proyectos: un emprendimiento freelance donde ofrecía desarrollar aplicaciones PWA y sitios web personalizados. Hoy ya no utilizo esa página, pero lo dejo como referencia de cómo arranqué."
+            },
+            
           ]
         }
       },
@@ -91,6 +111,13 @@ i18n
           "projectsTitle": "My Projects",
           "linkButton": "Link",
           "jobs": [
+            {
+              "jobTitle": "Project Manager",
+              "company": "Jett Labs",
+              "date": "March 2026 - Present",
+              "description": "I manage projects from the client's initial idea through final delivery. I take an agile approach—planning, coordinating, and supporting each stage to keep the team aligned, reduce friction, and make sure we ship on time with the expected outcome.",
+              "link": "https://www.jettlabs.xyz/es"
+            },
             {
               "jobTitle": "Co-founder",
               "company": "SFT DEVELOPMENT",
@@ -129,8 +156,20 @@ i18n
           ],
           "projects": [
             {
+              "title": "estebandiko.com",
+              "description": "Professional website for Dr. Esteban J. Dikowiec, Psychiatrist and Psychotherapist. Specialist in cognitive-behavioral therapy (CBT), with in-person consultations in Villa Ángela and online appointments. The site was built to convey trust and attract new patients."
+            },
+            {
+              "title": "SFT Development",
+              "description": "Software company we formed with my 3 teammates: Lauta, Tobi, and Sebas. We work as a team to build custom software solutions, from landing pages and web apps to automations and integrations, always focused on solving real business problems."
+            },
+            {
               "title": "GetPass",
               "description": "Ticketing platform that facilitates buying and selling tickets online. We developed a comprehensive, fast, and secure platform designed to simplify access to your favorite events and boost organizers' reach."
+            },
+            {
+              "title": "Vencemio",
+              "description": "My capstone project, built together with Mati, my teammate. We developed a Flutter PWA called Vencemio so businesses can sell near-expiry products at a lower price, cutting waste while helping people and the environment."
             },
             {
               "title": "ETL with Python and SQL: Large Scale Data Integration and Transformation",
@@ -138,8 +177,9 @@ i18n
             },
             {
               "title": "Toqqen - Freelance App & Web Development",
-              "description": "Toqqen is a freelance initiative where I offer custom PWA app and website development for businesses, companies, entrepreneurs, and more."
-            }
+              "description": "Toqqen was one of my first projects: a freelance initiative where I offered custom PWA and website development. I no longer use that site, but I keep it here as a snapshot of how I got started."
+            },
+            
           ]
         }
       }

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import toqqenImg from './assets/toQQen.png';
 import pp1 from './assets/etl.png';
 import getpassImg from './assets/getpass.svg';
+import estebandikoImg from './assets/estebandiko.png';
+import sftdevelopmentImg from './assets/sftdevelopment.png';
+import vencemioImg from './assets/vencemio.png';
 
 const ProjectSection = styled.section`
   background-color: #000000;
@@ -84,6 +87,11 @@ const TiltWrapper = styled.div`
   flex: 1.2;
   perspective: 1200px;
   position: relative;
+
+  @media (max-width: 968px) {
+    perspective: none;
+    width: 100%;
+  }
 `;
 
 const TiltInner = styled(motion.div)`
@@ -117,9 +125,15 @@ const TiltInner = styled(motion.div)`
     box-shadow: 0 30px 60px rgba(34, 197, 94, 0.2);
     border-color: rgba(34, 197, 94, 0.4);
   }
+
+  @media (max-width: 968px) {
+    transform-style: flat;
+    cursor: default;
+  }
 `;
 
 const TiltCard = ({ children }) => {
+  const [isMobile, setIsMobile] = useState(false);
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
   const opacity = useSpring(0, { stiffness: 300, damping: 30 });
@@ -135,7 +149,17 @@ const TiltCard = ({ children }) => {
   
   const glareBackground = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.3) 0%, transparent 50%)`;
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 968px)');
+    const updateMobileState = () => setIsMobile(mediaQuery.matches);
+
+    updateMobileState();
+    mediaQuery.addEventListener('change', updateMobileState);
+    return () => mediaQuery.removeEventListener('change', updateMobileState);
+  }, []);
+
   const handleMouseMove = (e) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     x.set((e.clientX - rect.left) / rect.width);
     y.set((e.clientY - rect.top) / rect.height);
@@ -143,6 +167,7 @@ const TiltCard = ({ children }) => {
   };
 
   const handleMouseLeave = () => {
+    if (isMobile) return;
     x.set(0.5);
     y.set(0.5);
     opacity.set(0);
@@ -150,22 +175,24 @@ const TiltCard = ({ children }) => {
 
   return (
     <TiltWrapper
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onMouseMove={isMobile ? undefined : handleMouseMove}
+      onMouseLeave={isMobile ? undefined : handleMouseLeave}
     >
-      <TiltInner style={{ rotateX, rotateY }}>
+      <TiltInner style={isMobile ? {} : { rotateX, rotateY }}>
         {children}
-        <motion.div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: glareBackground,
-            opacity,
-            pointerEvents: 'none',
-            zIndex: 10,
-            mixBlendMode: 'overlay'
-          }}
-        />
+        {!isMobile && (
+          <motion.div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: glareBackground,
+              opacity,
+              pointerEvents: 'none',
+              zIndex: 10,
+              mixBlendMode: 'overlay'
+            }}
+          />
+        )}
       </TiltInner>
     </TiltWrapper>
   );
@@ -173,7 +200,8 @@ const TiltCard = ({ children }) => {
 
 const ProjectImage = styled(motion.img)`
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 10;
+  height: auto;
   object-fit: cover;
   display: block;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
@@ -182,6 +210,13 @@ const ProjectImage = styled(motion.img)`
   ${TiltInner}:hover & {
     transform: scale(1.05);
     filter: grayscale(0%) contrast(1);
+  }
+
+  @media (max-width: 968px) {
+    object-fit: contain;
+    filter: grayscale(10%) contrast(1);
+    padding: 8px;
+    background: #0a0a0a;
   }
 `;
 
@@ -279,11 +314,14 @@ const LinkButton = styled(motion.a)`
   }
 `;
 
-const images = [getpassImg, pp1, toqqenImg];
+const images = [estebandikoImg, sftdevelopmentImg, getpassImg, vencemioImg, pp1, toqqenImg];
 const links = [
+  'https://www.estebandiko.com',
+  'https://sftdevelopment.com/',
   'https://www.getpass.com.ar',
+  'https://github.com/sebastiandiko/vencemio-mobile.git',
   'https://github.com/sebastiandiko/ETL-con-Python-y-SQL',
-  'https://www.devtoqqen.com',
+  'git@github.com:sebastiandiko/toqqen.git',
 ];
 
 const Projects = () => {
@@ -317,7 +355,7 @@ const Projects = () => {
                   <ProjectImage 
                     src={images[index]} 
                     alt={project.title} 
-                    style={index === 0 ? { objectFit: 'contain', padding: '50px', backgroundColor: '#000000' } : {}}
+                    style={index === 2 ? { objectFit: 'contain', padding: '50px', backgroundColor: '#000000' } : {}}
                   />
                 </TiltCard>
                 

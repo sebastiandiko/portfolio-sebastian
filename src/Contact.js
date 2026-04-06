@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaInstagram, FaLinkedin, FaEnvelope, FaPhoneAlt, FaFileDownload } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
-import cvES from './assets/Sebastian Dikowiec - CV - Español.pdf';
-import cvEN from './assets/Sebastian Dikowiec - CV - English.pdf';
+import cvES from './assets/cv-es.pdf';
+import cvEN from './assets/cv-en.pdf';
 
 const ContactSection = styled.section`
   background-color: #000000;
