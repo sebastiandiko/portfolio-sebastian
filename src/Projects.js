@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import shineHover from './shineEffect';
 import toqqenImg from './assets/toQQen.png';
 import pp1 from './assets/etl.png';
 import getpassImg from './assets/getpass.svg';
@@ -28,15 +29,12 @@ const ContentWrapper = styled.div`
 const Title = styled(motion.h2)`
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 700;
-  color: #ffffff;
   margin-bottom: 120px;
   text-align: center;
   letter-spacing: -0.03em;
-  background: linear-gradient(180deg, #ffffff 0%, #22c55e 200%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   position: relative;
   display: inline-block;
+  ${shineHover('linear-gradient(180deg, #ffffff 0%, #ffffff 200%)')}
 
   &::after {
     content: '';
@@ -46,9 +44,9 @@ const Title = styled(motion.h2)`
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background: #22c55e;
+    background: #ffffff;
     border-radius: 2px;
-    box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
 `;
 
@@ -110,7 +108,7 @@ const TiltInner = styled(motion.div)`
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(34, 197, 94, 0.15);
+    background: rgba(255, 255, 255, 0.15);
     z-index: 1;
     transition: all 0.5s ease;
     mix-blend-mode: color;
@@ -118,12 +116,12 @@ const TiltInner = styled(motion.div)`
   }
 
   &:hover::before {
-    background: rgba(34, 197, 94, 0);
+    background: rgba(255, 255, 255, 0);
   }
 
   &:hover {
-    box-shadow: 0 30px 60px rgba(34, 197, 94, 0.2);
-    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 30px 60px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
   }
 
   @media (max-width: 968px) {
@@ -244,7 +242,7 @@ const ProjectTitle = styled.h3`
   line-height: 1.2;
 
   &:hover {
-    color: #22c55e;
+    color: #ffffff;
     transition: color 0.3s ease;
   }
 
@@ -269,9 +267,9 @@ const DescriptionBox = styled.div`
   transition: all 0.4s ease;
   
   &:hover {
-    border-color: rgba(34, 197, 94, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
     background: #151515;
-    box-shadow: 0 15px 50px rgba(34, 197, 94, 0.15);
+    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.15);
   }
 
   p {
@@ -293,11 +291,11 @@ const DescriptionBox = styled.div`
 `;
 
 const LinkButton = styled(motion.a)`
-  background: transparent;
-  color: #22c55e;
+  background: #ffffff;
+  color: #000000;
   padding: 12px 28px;
   border-radius: 8px;
-  border: 1px solid #22c55e;
+  border: 1px solid #ffffff;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -308,8 +306,7 @@ const LinkButton = styled(motion.a)`
   transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(34, 197, 94, 0.1);
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
     transform: translateY(-2px);
   }
 `;

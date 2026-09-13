@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import MatrixRain from './MatrixRain';
+import shineHover from './shineEffect';
 
 const HeaderContainer = styled.header`
   height: 100vh;
@@ -38,9 +39,7 @@ const Title = styled(motion.h1)`
   font-weight: 700;
   letter-spacing: -0.04em;
   margin-bottom: 20px;
-  background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  ${shineHover('linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%)')}
   line-height: 1.1;
 
   @media (max-width: 480px) {
@@ -128,7 +127,7 @@ const Header = () => {
   const [showHint, setShowHint] = useState(() => !localStorage.getItem('languageHintClosed'));
   const { t, i18n } = useTranslation();
   const { scrollY } = useScroll();
-  
+
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 

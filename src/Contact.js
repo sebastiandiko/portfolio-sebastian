@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaInstagram, FaLinkedin, FaEnvelope, FaPhoneAlt, FaFileDownload } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
+import shineHover from './shineEffect';
 import cvES from './assets/cv-es.pdf';
 import cvEN from './assets/cv-en.pdf';
 
@@ -27,7 +28,7 @@ const ContactSection = styled.section`
     height: 80vw;
     max-width: 800px;
     max-height: 800px;
-    background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
     z-index: 0;
     pointer-events: none;
   }
@@ -47,7 +48,7 @@ const ContentWrapper = styled(motion.div)`
   position: relative;
   z-index: 2;
   background: rgba(15, 15, 15, 0.6);
-  border: 1px solid rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 80px 60px;
   border-radius: 40px;
   backdrop-filter: blur(25px);
@@ -73,13 +74,11 @@ const HeaderSection = styled.div`
 const Title = styled(motion.h2)`
   font-size: clamp(3rem, 6vw, 4.5rem);
   font-weight: 800;
-  color: #ffffff;
   margin-bottom: 20px;
   letter-spacing: -0.04em;
-  background: linear-gradient(135deg, #ffffff 0%, #22c55e 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   line-height: 1.1;
+  display: inline-block;
+  ${shineHover('linear-gradient(135deg, #ffffff 0%, #ffffff 100%)')}
 `;
 
 const Subtitle = styled(motion.p)`
@@ -124,7 +123,7 @@ const InfoCard = styled(motion.a)`
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
   }
@@ -137,8 +136,8 @@ const InfoCard = styled(motion.a)`
   &:hover {
     transform: translateY(-5px);
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(34, 197, 94, 0.3);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(34, 197, 94, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.1);
 
     &::before {
       opacity: 1;
@@ -150,8 +149,8 @@ const IconWrapper = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 12px;
-  background: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,7 +159,7 @@ const IconWrapper = styled.div`
   transition: all 0.3s ease;
 
   ${InfoCard}:hover & {
-    background: #22c55e;
+    background: #ffffff;
     color: #000000;
     transform: scale(1.1);
   }
@@ -186,7 +185,7 @@ const InfoText = styled.div`
   }
 
   ${InfoCard}:hover .value {
-    color: #22c55e;
+    color: #ffffff;
   }
 `;
 
@@ -223,9 +222,9 @@ const SocialLinks = styled.div`
 
     &:hover {
       color: #000000;
-      background: #22c55e;
+      background: #ffffff;
       transform: translateY(-5px) scale(1.1);
-      box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
     }
   }
 `;
@@ -238,8 +237,8 @@ const CVButtonsContainer = styled.div`
 `;
 
 const CVButton = styled(motion.a)`
-  background-color: transparent;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   padding: 12px 24px;
   border-radius: 12px;
   text-decoration: none;
@@ -248,35 +247,14 @@ const CVButton = styled(motion.a)`
   display: flex;
   align-items: center;
   gap: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #ffffff;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
 
-  /* Animated background hover */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s ease;
-  }
-
   &:hover {
-    border-color: #22c55e;
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
-    
-    &::before {
-      left: 100%;
-    }
-
-    svg {
-      color: #22c55e;
-      transform: translateY(2px);
-    }
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
   }
 
   svg {
@@ -317,7 +295,9 @@ const Contact = () => {
         viewport={{ once: true, margin: "-50px" }}
       >
         <HeaderSection>
-          <Title variants={itemVariants}>{t('contactTitle')}</Title>
+          <Title variants={itemVariants}>
+            {t('contactTitle')}
+          </Title>
           <Subtitle variants={itemVariants}>
             ¿Tienes un proyecto en mente? ¡Hablemos!
           </Subtitle>

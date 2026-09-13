@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import shineHover from './shineEffect';
 
 const ExperienceSection = styled.section`
   background-color: #000000;
@@ -29,15 +30,12 @@ const ContentWrapper = styled.div`
 const Title = styled(motion.h2)`
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 700;
-  color: #ffffff;
   margin-bottom: 80px;
   text-align: center;
   letter-spacing: -0.03em;
-  background: linear-gradient(180deg, #ffffff 0%, #22c55e 200%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   position: relative;
   display: inline-block;
+  ${shineHover('linear-gradient(180deg, #ffffff 0%, #ffffff 200%)')}
 
   &::after {
     content: '';
@@ -47,9 +45,9 @@ const Title = styled(motion.h2)`
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background: #22c55e;
+    background: #ffffff;
     border-radius: 2px;
-    box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
 `;
 
@@ -70,7 +68,7 @@ const ExperienceList = styled(motion.div)`
     bottom: 0;
     left: 45px;
     width: 2px;
-    background: linear-gradient(180deg, transparent 0%, rgba(34, 197, 94, 0.3) 15%, rgba(34, 197, 94, 0.3) 85%, transparent 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.3) 15%, rgba(255, 255, 255, 0.3) 85%, transparent 100%);
     z-index: 1;
 
     @media (max-width: 768px) {
@@ -106,10 +104,10 @@ const TimelineDot = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: #000000;
-  border: 4px solid #22c55e;
+  border: 4px solid #ffffff;
   z-index: 2;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0);
 
   @media (max-width: 768px) {
     left: 11px;
@@ -129,7 +127,7 @@ const ExperienceCard = styled(motion.a)`
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 35px 40px;
   border-radius: 24px;
   backdrop-filter: blur(20px);
@@ -141,9 +139,9 @@ const ExperienceCard = styled(motion.a)`
 
   &:hover {
     transform: translateY(-5px);
-    background: rgba(34, 197, 94, 0.04);
-    border-color: rgba(34, 197, 94, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(34, 197, 94, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 255, 255, 0.1);
   }
 
   @media (max-width: 768px) {
@@ -176,25 +174,25 @@ const JobTitle = styled.h3`
   transition: color 0.3s ease;
 
   ${ExperienceCard}:hover & {
-    color: #22c55e;
-    text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   }
 `;
 
 const Company = styled.h4`
   font-size: 1.1rem;
   font-weight: 500;
-  color: #22c55e;
+  color: #ffffff;
   padding: 4px 12px;
-  background: rgba(34, 197, 94, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  border: 1px solid rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 `;
 
 const JobDate = styled.div`
   font-size: 0.85rem;
   font-weight: 600;
-  color: #22c55e;
+  color: #ffffff;
   margin-bottom: 15px;
   margin-top: -5px;
   letter-spacing: 0.05em;
@@ -203,8 +201,8 @@ const JobDate = styled.div`
   align-items: center;
   
   ${ExperienceCard}:hover & {
-    color: #4ade80;
-    text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
   }
 `;
 
@@ -260,8 +258,8 @@ const Experience = () => {
               onMouseEnter={(e) => {
                 const dot = e.currentTarget.querySelector('.timeline-dot');
                 if (dot) {
-                  dot.style.background = '#22c55e';
-                  dot.style.boxShadow = '0 0 15px rgba(34, 197, 94, 0.6)';
+                  dot.style.background = '#ffffff';
+                  dot.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.6)';
                   dot.style.transform = 'scale(1.2)';
                 }
               }}
@@ -269,7 +267,7 @@ const Experience = () => {
                 const dot = e.currentTarget.querySelector('.timeline-dot');
                 if (dot) {
                   dot.style.background = '#000000';
-                  dot.style.boxShadow = '0 0 0 rgba(34, 197, 94, 0)';
+                  dot.style.boxShadow = '0 0 0 rgba(255, 255, 255, 0)';
                   dot.style.transform = 'scale(1)';
                 }
               }}

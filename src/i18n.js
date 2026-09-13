@@ -9,6 +9,7 @@ i18n
         translation: {
           "title": "Sebastian Dikowiec",
           "subtitle": "Ingeniero en Sistemas de Información",
+          "playVideo": "Reproducir video",
           "technologiesTitle": "Tecnologías que Utilizo",
           "experienceTitle": "Experiencia Laboral",
           "contactTitle": "Contacto",
@@ -16,12 +17,19 @@ i18n
           "phoneLabel": "Teléfono",
           "downloadCV": "Descargar CV",
           "aboutTitle": "Sobre Mí",
-          "aboutDescription": "Hola! 👋 Soy Sebas, Ingeniero en Sistemas de Información, y me gusta estar en el punto donde las ideas se convierten en proyectos reales. Me interesa la gestión de proyectos, la mejora de procesos y el uso estratégico de la inteligencia artificial para crear soluciones útiles, simples y con impacto. Me destaco por ser versátil, puedo entender tanto el negocio como la parte técnica, conectar equipos y ayudar a que las cosas avancen de verdad. ¿Te interesa hacer que las cosas funcionen? Charlemos...",
+          "aboutDescription": "¡Hola! Soy Sebastian, <strong>Ingeniero en Sistemas de Información</strong> con una mirada que mezcla tecnología, gestión y producto. Antes de escribir código o armar un plan, me gusta entender bien el problema. ¿Cómo lo vive el usuario? ¿Dónde puede romperse algo? ¿Qué es lo que realmente hay que resolver? Esa misma curiosidad la aplico auditando calidad o coordinando un equipo.<br/><br/>Me gusta que las cosas pasen. Ordeno prioridades, acompaño cada etapa y no dejo que un proyecto se quede a mitad de camino, siempre con un enfoque <strong>ágil</strong> que prioriza que la solución funcione en la vida real.<br/><br/>Y sobre todo, me gusta conectar con clientes, con devs, con cualquiera que tenga una idea y no sepa bien cómo hacerla funcionar. ¿Tenés algo así en mente? Hablemos.",
           "changeLanguageHint": "Adaptalo a tu idioma",
           "footerText": "© 2025 Sebastian Dikowiec. Todos los derechos reservados.",
           "projectsTitle": "Mis Proyectos",
           "linkButton": "Enlace",
           "jobs": [
+            {
+              "jobTitle": "QA Analyst",
+              "company": "Capgemini",
+              "date": "Junio 2026 - Presente",
+              "description": "Garantizo que lo que se construye funcione como se prometió. Diseño y ejecuto casos de prueba, detecto inconsistencias antes de que lleguen a producción y trabajo codo a codo con desarrollo para que el detalle que nadie ve sea, justamente, lo que hace que el producto se sienta sólido.",
+              "link": "https://www.capgemini.com/ar-es/"
+            },
             {
               "jobTitle": "Project Manager",
               "company": "Jett Labs",
@@ -98,6 +106,7 @@ i18n
         translation: {
           "title": "Sebastian Dikowiec",
           "subtitle": "Information Systems Engineer",
+          "playVideo": "Play video",
           "technologiesTitle": "Technologies I Use",
           "experienceTitle": "Work Experience",
           "contactTitle": "Contact",
@@ -105,12 +114,19 @@ i18n
           "phoneLabel": "Phone",
           "downloadCV": "Download CV",
           "aboutTitle": "About Me",
-          "aboutDescription": "Hi! 👋 I'm Sebas, an Information Systems Engineer, and I love being at the point where ideas turn into real projects. I'm interested in project management, process improvement, and the strategic use of artificial intelligence to create useful, simple, and impactful solutions. I stand out for my versatility; I can understand both the business and technical sides, connect teams, and really help things move forward. Interested in making things work? Let's chat...",
+          "aboutDescription": "Hi! I'm Sebastian, an <strong>Information Systems Engineer</strong> with a perspective that blends technology, management, and product. Before writing code or putting together a plan, I like to really understand the problem. How does the user experience it? Where might something break? What actually needs solving? I bring that same curiosity to auditing quality or coordinating a team.<br/><br/>I like making things happen. I sort out priorities, support every stage, and don't let a project stall halfway through, always with an <strong>agile</strong> approach that puts real-world results first.<br/><br/>And above all, I like connecting with clients, with developers, with anyone who has an idea and isn't quite sure how to make it work. Got something like that in mind? Let's talk.",
           "changeLanguageHint": "Set your language",
           "footerText": "© 2025 Sebastián Dikowiec. All rights reserved.",
           "projectsTitle": "My Projects",
           "linkButton": "Link",
           "jobs": [
+            {
+              "jobTitle": "QA Analyst",
+              "company": "Capgemini",
+              "date": "June 2026 - Present",
+              "description": "I make sure what gets built works as promised. I design and run test cases, catch inconsistencies before they reach production, and work closely with development so that the detail nobody sees is exactly what makes the product feel solid.",
+              "link": "https://www.capgemini.com/ar-es/"
+            },
             {
               "jobTitle": "Project Manager",
               "company": "Jett Labs",

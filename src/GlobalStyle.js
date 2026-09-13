@@ -33,14 +33,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: #2997ff; /* Azul Apple */
+    color: #f5f5f7;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
   }
 
   a:hover {
-    color: #147ce5; /* Azul Apple hover */
+    color: #ffffff;
   }
 
   section {

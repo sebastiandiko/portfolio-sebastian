@@ -69,12 +69,12 @@ const MatrixRain = () => {
         // Random glow effect on tips of trails
         if (Math.random() > 0.98) {
             ctx.shadowBlur = 15;
-            ctx.shadowColor = '#22c55e';
+            ctx.shadowColor = '#ffffff';
             ctx.fillStyle = '#ffffff'; // White tip
         } else {
             ctx.shadowBlur = 2;
-            ctx.shadowColor = '#22c55e';
-            ctx.fillStyle = '#22c55e'; // Theme green
+            ctx.shadowColor = '#8a8a90';
+            ctx.fillStyle = '#8a8a90'; // Monochrome rain
         }
 
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
