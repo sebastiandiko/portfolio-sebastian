@@ -10,6 +10,13 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html {
+    /* Prevents Safari from auto-inflating font sizes on rotation,
+       which otherwise breaks the fixed/clamp() type scale on mobile. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #000000; /* Fondo negro profundo Apple */
@@ -17,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  img, video {
+    max-width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {

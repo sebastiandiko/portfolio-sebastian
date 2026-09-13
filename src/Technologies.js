@@ -69,7 +69,10 @@ const KnifeColumn = styled.div`
   flex-shrink: 0;
   width: 300px;
   position: relative;
-  perspective: 1000px;
+
+  @media (hover: hover) and (pointer: fine) {
+    perspective: 1000px;
+  }
 
   @media (max-width: 900px) {
     width: 220px;
@@ -108,8 +111,11 @@ const ContactShadow = styled.div`
 const TiltInner = styled(motion.div)`
   position: relative;
   width: 100%;
-  transform-style: preserve-3d;
   will-change: transform;
+
+  @media (hover: hover) and (pointer: fine) {
+    transform-style: preserve-3d;
+  }
 `;
 
 const KnifeImage = styled(motion.img)`

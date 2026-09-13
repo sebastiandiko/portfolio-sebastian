@@ -71,11 +71,10 @@ const ProjectItem = styled(motion.div)`
 
 const TiltWrapper = styled.div`
   width: 100%;
-  perspective: 1200px;
   position: relative;
 
-  @media (max-width: 968px) {
-    perspective: none;
+  @media (hover: hover) and (pointer: fine) {
+    perspective: 1200px;
   }
 `;
 
@@ -94,9 +93,12 @@ const TiltInner = styled(motion.div)`
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 20px 50px rgba(0,0,0,0.5);
   cursor: pointer;
-  transform-style: preserve-3d;
   will-change: transform;
   transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+
+  @media (hover: hover) and (pointer: fine) {
+    transform-style: preserve-3d;
+  }
 
   /* Tint overlay, shared by the whole card */
   &::before {
@@ -124,7 +126,6 @@ const TiltInner = styled(motion.div)`
     flex-direction: column;
     padding: 24px;
     gap: 30px;
-    transform-style: flat;
     cursor: default;
   }
 

@@ -8,11 +8,18 @@ import AboutMe from './AboutMe';
 
 const HeroWrapper = styled.div`
   position: relative;
-  height: calc(100vh + 600px);
+  /* Extra scroll room must exceed the largest scrollY breakpoint used
+     below (650px) or the sticky header releases before the About-Me
+     reveal finishes animating. 100svh (small viewport height) avoids
+     the mobile browser toolbar making 100vh taller than what's
+     actually visible on load. */
+  height: calc(100vh + 700px);
+  height: calc(100svh + 700px);
 `;
 
 const HeaderContainer = styled.header`
   height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;

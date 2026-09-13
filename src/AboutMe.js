@@ -71,7 +71,14 @@ const ImageContainer = styled.div`
   flex-shrink: 0;
   width: 320px;
   position: relative;
-  perspective: 1000px;
+
+  /* perspective + preserve-3d combined with backdrop-filter on a
+     touchscreen (no real hover) is a known Safari/Chrome mobile bug
+     that renders blurred panels broken or flickering. Scope the 3D
+     tilt context to devices that actually have a mouse. */
+  @media (hover: hover) and (pointer: fine) {
+    perspective: 1000px;
+  }
 
   @media (max-width: 900px) {
     width: 240px;
@@ -111,8 +118,11 @@ const ContactShadow = styled.div`
 const TiltInner = styled(motion.div)`
   position: relative;
   width: 100%;
-  transform-style: preserve-3d;
   will-change: transform;
+
+  @media (hover: hover) and (pointer: fine) {
+    transform-style: preserve-3d;
+  }
 `;
 
 const StyledImage = styled(motion.img)`
