@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-const CanvasContainer = styled.div`
+const CanvasContainer = styled(motion.div)`
   position: absolute;
   top: 0;
   left: 0;
@@ -9,21 +10,21 @@ const CanvasContainer = styled.div`
   height: 100%;
   z-index: 1;
   overflow: hidden;
-  opacity: 0.8; /* Slight opacity to keep it subtle */
+  will-change: opacity;
 `;
 
 const Canvas = styled.canvas`
   display: block;
 `;
 
-const MatrixRain = () => {
+const MatrixRain = ({ style }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
+
+    const ctx = canvas.getContext('2d', { alpha: false });
 
     const fontSize = 16;
     let columns = 0;
@@ -33,7 +34,7 @@ const MatrixRain = () => {
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      
+
       const newColumns = Math.floor(canvas.width / fontSize);
       if (newColumns > columns) {
         for (let x = columns; x < newColumns; x++) {
@@ -42,7 +43,7 @@ const MatrixRain = () => {
       }
       columns = newColumns;
     };
-    
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
@@ -65,7 +66,7 @@ const MatrixRain = () => {
         }
 
         const text = chars[Math.floor(Math.random() * chars.length)];
-        
+
         // Random glow effect on tips of trails
         if (Math.random() > 0.98) {
             ctx.shadowBlur = 15;
@@ -89,16 +90,39 @@ const MatrixRain = () => {
       }
     };
 
-    const interval = setInterval(draw, 35); // Approx ~30 FPS
+    // Drive the rain off rAF (synced with the compositor/scroll frame)
+    // instead of setInterval, and only while the canvas is actually
+    // visible on screen — this is what was fighting the scroll thread
+    // for main-thread time on every frame regardless of scroll position.
+    const FRAME_INTERVAL = 1000 / 30; // ~30 FPS is plenty for this effect
+    let rafId = null;
+    let lastDrawTime = 0;
+    let isVisible = true;
+
+    const tick = (time) => {
+      rafId = requestAnimationFrame(tick);
+      if (!isVisible || document.hidden) return;
+      if (time - lastDrawTime < FRAME_INTERVAL) return;
+      lastDrawTime = time;
+      draw();
+    };
+    rafId = requestAnimationFrame(tick);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
 
     return () => {
-      clearInterval(interval);
+      cancelAnimationFrame(rafId);
+      observer.disconnect();
       window.removeEventListener('resize', resizeCanvas);
     };
   }, []);
 
   return (
-    <CanvasContainer>
+    <CanvasContainer style={{ opacity: 0.8, ...style }}>
       <Canvas ref={canvasRef} />
     </CanvasContainer>
   );

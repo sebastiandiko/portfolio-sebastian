@@ -66,44 +66,39 @@ const ProjectContainer = styled.div`
 `;
 
 const ProjectItem = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  gap: 60px;
-  flex-direction: ${props => props.$reverse ? 'row-reverse' : 'row'};
-
-  @media (max-width: 968px) {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  @media (max-width: 480px) {
-    gap: 30px;
-  }
+  width: 100%;
 `;
 
 const TiltWrapper = styled.div`
-  flex: 1.2;
+  width: 100%;
   perspective: 1200px;
   position: relative;
 
   @media (max-width: 968px) {
     perspective: none;
-    width: 100%;
   }
 `;
 
 const TiltInner = styled(motion.div)`
   position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  flex-direction: ${props => props.$reverse ? 'row-reverse' : 'row'};
+  padding: 40px;
+  border-radius: 24px;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255, 255, 255, 0.05);
   cursor: pointer;
   transform-style: preserve-3d;
-  
-  /* Green tint overlay */
+  will-change: transform;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+
+  /* Tint overlay, shared by the whole card */
   &::before {
     content: '';
     position: absolute;
@@ -120,17 +115,34 @@ const TiltInner = styled(motion.div)`
   }
 
   &:hover {
-    box-shadow: 0 30px 60px rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 30px 60px rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.04);
   }
 
   @media (max-width: 968px) {
+    flex-direction: column;
+    padding: 24px;
+    gap: 30px;
     transform-style: flat;
     cursor: default;
   }
+
+  @media (max-width: 480px) {
+    padding: 18px;
+    gap: 20px;
+  }
 `;
 
-const TiltCard = ({ children }) => {
+const ImageBox = styled.div`
+  flex: 1.2;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+`;
+
+const TiltCard = ({ children, reverse, onClick }) => {
   const [isMobile, setIsMobile] = useState(false);
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
@@ -176,7 +188,7 @@ const TiltCard = ({ children }) => {
       onMouseMove={isMobile ? undefined : handleMouseMove}
       onMouseLeave={isMobile ? undefined : handleMouseLeave}
     >
-      <TiltInner style={isMobile ? {} : { rotateX, rotateY }}>
+      <TiltInner $reverse={reverse} onClick={onClick} style={isMobile ? {} : { rotateX, rotateY }}>
         {children}
         {!isMobile && (
           <motion.div
@@ -225,11 +237,6 @@ const InfoContainer = styled(motion.div)`
   justify-content: center;
   z-index: 2;
   position: relative;
-
-  @media (min-width: 969px) {
-    /* Slight negative margin to overlap the image slightly */
-    ${props => props.$reverse ? 'margin-right: -40px;' : 'margin-left: -40px;'}
-  }
 `;
 
 const ProjectTitle = styled.h3`
@@ -240,11 +247,6 @@ const ProjectTitle = styled.h3`
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 
   line-height: 1.2;
-
-  &:hover {
-    color: #ffffff;
-    transition: color 0.3s ease;
-  }
 
   @media (max-width: 768px) {
     font-size: 1.8rem;
@@ -257,20 +259,8 @@ const ProjectTitle = styled.h3`
 `;
 
 const DescriptionBox = styled.div`
-  background: #111111;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
   margin-bottom: 35px;
   position: relative;
-  transition: all 0.4s ease;
-  
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.3);
-    background: #151515;
-    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.15);
-  }
 
   p {
     font-size: 1.05rem;
@@ -280,9 +270,8 @@ const DescriptionBox = styled.div`
   }
 
   @media (max-width: 480px) {
-    padding: 20px;
     margin-bottom: 25px;
-    
+
     p {
       font-size: 0.95rem;
       line-height: 1.6;
@@ -339,63 +328,48 @@ const Projects = () => {
         <ProjectContainer>
           {Array.isArray(projects) && projects.map((project, index) => {
             const isReverse = index % 2 !== 0;
+            const openProject = () => {
+              if (links[index]) {
+                window.open(links[index], '_blank', 'noopener,noreferrer');
+              }
+            };
+
             return (
-              <ProjectItem 
-                key={index} 
-                $reverse={isReverse}
+              <ProjectItem
+                key={index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
               >
-                <TiltCard>
-                  <ProjectImage 
-                    src={images[index]} 
-                    alt={project.title} 
-                    style={index === 2 ? { objectFit: 'contain', padding: '50px', backgroundColor: '#000000' } : {}}
-                  />
-                </TiltCard>
-                
-                <InfoContainer $reverse={isReverse}>
-                  <motion.div
-                    initial={{ opacity: 0, x: isReverse ? 30 : -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                  >
+                <TiltCard reverse={isReverse} onClick={openProject}>
+                  <ImageBox>
+                    <ProjectImage
+                      src={images[index]}
+                      alt={project.title}
+                      style={index === 2 ? { objectFit: 'contain', padding: '50px', backgroundColor: '#000000' } : {}}
+                    />
+                  </ImageBox>
+
+                  <InfoContainer>
                     <ProjectTitle>{project.title}</ProjectTitle>
-                  </motion.div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
+
                     <DescriptionBox>
                       <p>{project.description}</p>
                     </DescriptionBox>
-                  </motion.div>
-                  
-                  {links[index] && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.3 }}
-                    >
+
+                    {links[index] && (
                       <LinkButton
                         href={links[index]}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         {t('linkButton')}
                       </LinkButton>
-                    </motion.div>
-                  )}
-                </InfoContainer>
+                    )}
+                  </InfoContainer>
+                </TiltCard>
               </ProjectItem>
             );
           })}

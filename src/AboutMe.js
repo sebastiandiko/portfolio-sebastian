@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import shineHover from './shineEffect';
 import sebastianDefault from './assets/cutouts/sebastian-default.png';
 import sebastianHover from './assets/cutouts/sebastian-hover.png';
 
@@ -34,29 +33,6 @@ const ContentWrapper = styled.div`
   margin: 0 auto;
   position: relative;
   z-index: 2;
-`;
-
-const Title = styled(motion.h2)`
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 700;
-  margin-bottom: 60px;
-  letter-spacing: -0.03em;
-  position: relative;
-  display: inline-block;
-  ${shineHover('linear-gradient(#ffffff, #ffffff)')}
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background: #ffffff;
-    border-radius: 2px;
-    opacity: 0.4;
-  }
 `;
 
 const AboutLayout = styled(motion.div)`
@@ -136,6 +112,7 @@ const TiltInner = styled(motion.div)`
   position: relative;
   width: 100%;
   transform-style: preserve-3d;
+  will-change: transform;
 `;
 
 const StyledImage = styled(motion.img)`
@@ -221,21 +198,7 @@ const AboutMe = () => {
   return (
     <AboutSection ref={sectionRef}>
       <ContentWrapper>
-        <Title
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {t('aboutTitle')}
-        </Title>
-
-        <AboutLayout
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          viewport={{ once: true, margin: '-100px' }}
-        >
+        <AboutLayout>
           <ImageContainer
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}

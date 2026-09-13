@@ -22,13 +22,13 @@ const TechSection = styled.section`
   background-color: #0a0a0c;
   color: #f5f5f7;
   text-align: center;
-  padding: 120px 20px;
+  padding: 70px 20px 120px;
   position: relative;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
   @media (max-width: 768px) {
-    padding: 80px 15px;
+    padding: 50px 15px 80px;
   }
 `;
 
@@ -109,6 +109,7 @@ const TiltInner = styled(motion.div)`
   position: relative;
   width: 100%;
   transform-style: preserve-3d;
+  will-change: transform;
 `;
 
 const KnifeImage = styled(motion.img)`
@@ -167,6 +168,7 @@ const TechTrack = styled(motion.div)`
   flex-direction: column;
   width: 100%;
   cursor: grab;
+  will-change: transform;
 
   &:active {
     cursor: grabbing;
@@ -272,6 +274,7 @@ const Technologies = () => {
   const trackY = useMotionValue(0);
   const setHeightRef = useRef(0);
   const isPausedRef = useRef(false);
+  const isVisibleRef = useRef(false);
   const SCROLL_SPEED = 40; // px per second
 
   useEffect(() => {
@@ -285,9 +288,23 @@ const Technologies = () => {
     return () => window.removeEventListener('resize', measure);
   }, []);
 
+  // The carousel used to animate forever, even while the section was
+  // scrolled far out of view — wasted work stealing frame budget from
+  // the scroll everywhere else on the page. Only run it while visible.
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   useAnimationFrame((t, delta) => {
     const setHeight = setHeightRef.current;
-    if (!setHeight) return;
+    if (!setHeight || !isVisibleRef.current) return;
 
     if (!isPausedRef.current) {
       trackY.set(trackY.get() - (delta / 1000) * SCROLL_SPEED);

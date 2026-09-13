@@ -4,6 +4,12 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import MatrixRain from './MatrixRain';
 import shineHover from './shineEffect';
+import AboutMe from './AboutMe';
+
+const HeroWrapper = styled.div`
+  position: relative;
+  height: calc(100vh + 600px);
+`;
 
 const HeaderContainer = styled.header`
   height: 100vh;
@@ -11,7 +17,8 @@ const HeaderContainer = styled.header`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
+  position: sticky;
+  top: 0;
   text-align: center;
   background-color: #000000;
   overflow: hidden;
@@ -32,6 +39,23 @@ const ContentWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  will-change: transform, opacity;
+`;
+
+const RevealLayer = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+`;
+
+const RevealedAboutMe = styled(motion.div)`
+  width: 100%;
+  pointer-events: auto;
+  will-change: transform, opacity;
 `;
 
 const Title = styled(motion.h1)`
@@ -131,6 +155,12 @@ const Header = () => {
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
+  // The matrix rain clears and the title fades, then the About section
+  // takes over the same spot as you keep scrolling
+  const matrixOpacity = useTransform(scrollY, [0, 450], [0.8, 0.04]);
+  const aboutOpacity = useTransform(scrollY, [250, 650], [0, 1]);
+  const aboutScale = useTransform(scrollY, [250, 650], [0.92, 1]);
+
   const toggleLanguage = () => {
     const newLang = i18n.language === 'es' ? 'en' : 'es';
     i18n.changeLanguage(newLang);
@@ -156,9 +186,16 @@ const Header = () => {
   };
 
   return (
+    <HeroWrapper>
     <HeaderContainer>
-      <MatrixRain />
-      
+      <MatrixRain style={{ opacity: matrixOpacity }} />
+
+      <RevealLayer>
+        <RevealedAboutMe style={{ opacity: aboutOpacity, scale: aboutScale }}>
+          <AboutMe />
+        </RevealedAboutMe>
+      </RevealLayer>
+
       <GlassButton onClick={toggleLanguage}>
         {i18n.language === 'es' ? 'English' : 'Español'}
       </GlassButton>
@@ -183,6 +220,7 @@ const Header = () => {
         </Subtitle>
       </ContentWrapper>
     </HeaderContainer>
+    </HeroWrapper>
   );
 };
 

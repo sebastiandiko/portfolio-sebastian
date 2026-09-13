@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaInstagram, FaLinkedin, FaEnvelope, FaPhoneAlt, FaFileDownload } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
+import { FaInstagram, FaLinkedin, FaPaperPlane } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import shineHover from './shineEffect';
-import cvES from './assets/cv-es.pdf';
-import cvEN from './assets/cv-en.pdf';
+import pulseGlow from './pulseEffect';
+
+const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
 const ContactSection = styled.section`
   background-color: #000000;
@@ -89,119 +93,108 @@ const Subtitle = styled(motion.p)`
   line-height: 1.6;
 `;
 
-const ContactGrid = styled.div`
+const Form = styled(motion.form)`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 50px;
+`;
+
+const FormRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 60px;
+  gap: 24px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  @media (max-width: 480px) {
-    gap: 20px;
+    gap: 24px;
   }
 `;
 
-const InfoCard = styled(motion.a)`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 30px;
+const fieldStyles = `
+  width: 100%;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 16px 18px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
 
-  /* Hover gradient */
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  @media (max-width: 480px) {
-    padding: 20px;
-    gap: 15px;
+  &::placeholder {
+    color: #57575c;
   }
 
   &:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
 
-    &::before {
-      opacity: 1;
-    }
+  &:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.06);
   }
 `;
 
-const IconWrapper = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  display: flex;
+const FieldInput = styled.input`
+  ${fieldStyles}
+`;
+
+const FieldTextArea = styled.textarea`
+  ${fieldStyles}
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.6;
+`;
+
+const SubmitButton = styled(motion.button)`
+  background-color: #ffffff;
+  color: #000000;
+  padding: 16px 32px;
+  border-radius: 14px;
+  border: 1px solid #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
+  gap: 12px;
+  cursor: pointer;
+  align-self: center;
+  transition: box-shadow 0.3s ease;
+  ${pulseGlow}
 
-  ${InfoCard}:hover & {
-    background: #ffffff;
-    color: #000000;
-    transform: scale(1.1);
+  &:hover:not(:disabled) {
+    box-shadow: 0 10px 34px rgba(255, 255, 255, 0.35);
+    animation-play-state: paused;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    animation-play-state: paused;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
   }
 `;
 
-const InfoText = styled.div`
-  display: flex;
-  flex-direction: column;
-  z-index: 1;
-
-  .label {
-    font-size: 0.9rem;
-    color: #86868b;
-    margin-bottom: 5px;
-    font-weight: 500;
-  }
-
-  .value {
-    font-size: 1.1rem;
-    color: #ffffff;
-    font-weight: 600;
-    transition: color 0.3s ease;
-  }
-
-  ${InfoCard}:hover .value {
-    color: #ffffff;
-  }
+const StatusMessage = styled(motion.p)`
+  text-align: center;
+  font-size: 0.95rem;
+  margin: -8px 0 0;
+  color: ${props => (props.$isError ? '#ff8a8a' : '#8affa8')};
 `;
 
 const BottomSection = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-top: 40px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  flex-wrap: wrap;
-  gap: 30px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    text-align: center;
-  }
 `;
 
 const SocialLinks = styled.div`
@@ -229,49 +222,10 @@ const SocialLinks = styled.div`
   }
 `;
 
-const CVButtonsContainer = styled.div`
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
-const CVButton = styled(motion.a)`
-  background-color: #ffffff;
-  color: #000000;
-  padding: 12px 24px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid #ffffff;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
-  }
-
-  svg {
-    transition: all 0.3s ease;
-    font-size: 1.1rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 10px 20px;
-    font-size: 0.95rem;
-    width: 100%;
-    justify-content: center;
-  }
-`;
-
 const Contact = () => {
   const { t } = useTranslation();
+  const [formData, setFormData] = useState({ email: '', subject: '', message: '' });
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -286,8 +240,40 @@ const Contact = () => {
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
   };
 
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      console.error('Faltan las variables de entorno de EmailJS (REACT_APP_EMAILJS_*)');
+      setStatus('error');
+      return;
+    }
+
+    setStatus('sending');
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+      setStatus('success');
+      setFormData({ email: '', subject: '', message: '' });
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      setStatus('error');
+    }
+  };
+
   return (
-    <ContactSection>
+    <ContactSection id="contact">
       <ContentWrapper
         variants={containerVariants}
         initial="hidden"
@@ -299,35 +285,65 @@ const Contact = () => {
             {t('contactTitle')}
           </Title>
           <Subtitle variants={itemVariants}>
-            ¿Tienes un proyecto en mente? ¡Hablemos!
+            {t('contactSubtitle')}
           </Subtitle>
         </HeaderSection>
 
-        <ContactGrid>
-          <InfoCard
-            href="mailto:sebadikow@gmail.com"
-            variants={itemVariants}
-            whileHover="hover"
-          >
-            <IconWrapper><FaEnvelope /></IconWrapper>
-            <InfoText>
-              <span className="label">{t('emailLabel')}</span>
-              <span className="value">sebadikow@gmail.com</span>
-            </InfoText>
-          </InfoCard>
+        <Form onSubmit={handleSubmit} variants={itemVariants}>
+          <FormRow>
+            <FieldInput
+              name="email"
+              type="email"
+              required
+              aria-label={t('contactFormEmailLabel')}
+              placeholder={t('contactFormEmailLabel')}
+              value={formData.email}
+              onChange={handleChange}
+            />
 
-          <InfoCard
-            href="tel:+543735529679"
-            variants={itemVariants}
-            whileHover="hover"
+            <FieldInput
+              name="subject"
+              type="text"
+              required
+              aria-label={t('contactFormSubjectLabel')}
+              placeholder={t('contactFormSubjectLabel')}
+              value={formData.subject}
+              onChange={handleChange}
+            />
+          </FormRow>
+
+          <FieldTextArea
+            name="message"
+            required
+            aria-label={t('contactFormMessageLabel')}
+            placeholder={t('contactFormMessageLabel')}
+            value={formData.message}
+            onChange={handleChange}
+          />
+
+          <SubmitButton
+            type="submit"
+            disabled={status === 'sending'}
+            animate={status === 'sending' ? { scale: 1 } : { scale: [1, 1.05, 1] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+            whileHover={{ scale: status === 'sending' ? 1 : 1.08 }}
+            whileTap={{ scale: status === 'sending' ? 1 : 0.95 }}
           >
-            <IconWrapper><FaPhoneAlt /></IconWrapper>
-            <InfoText>
-              <span className="label">{t('phoneLabel')}</span>
-              <span className="value">+54 3735 529679</span>
-            </InfoText>
-          </InfoCard>
-        </ContactGrid>
+            <FaPaperPlane />
+            {status === 'sending' ? t('contactFormSending') : t('contactFormButton')}
+          </SubmitButton>
+
+          {status === 'success' && (
+            <StatusMessage initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              {t('contactFormSuccess')}
+            </StatusMessage>
+          )}
+          {status === 'error' && (
+            <StatusMessage $isError initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              {t('contactFormError')}
+            </StatusMessage>
+          )}
+        </Form>
 
         <BottomSection>
           <motion.div variants={itemVariants}>
@@ -349,23 +365,6 @@ const Contact = () => {
                 <FaLinkedin />
               </a>
             </SocialLinks>
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <CVButtonsContainer>
-              <CVButton
-                href={cvES}
-                download="Sebastian_Dikowiec_CV_ES.pdf"
-              >
-                <FaFileDownload /> CV - Español
-              </CVButton>
-              <CVButton
-                href={cvEN}
-                download="Sebastian_Dikowiec_CV_EN.pdf"
-              >
-                <FaFileDownload /> CV - English
-              </CVButton>
-            </CVButtonsContainer>
           </motion.div>
         </BottomSection>
       </ContentWrapper>

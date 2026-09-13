@@ -12,15 +12,15 @@ const ringPulse = keyframes`
 
 const VideoSection = styled.section`
   background-color: #000000;
-  padding: 40px 10px 140px;
+  padding: 40px 10px 70px;
   position: relative;
 
   @media (max-width: 768px) {
-    padding: 24px 8px 90px;
+    padding: 24px 8px 50px;
   }
 
   @media (max-width: 480px) {
-    padding: 16px 0 70px;
+    padding: 16px 0 40px;
   }
 `;
 
