@@ -184,7 +184,11 @@ const AboutMe = () => {
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
-  const imageParallax = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  // The card clips overflow for its glass/glow effect, and mobile padding
+  // is too tight to absorb the full ±40px scroll parallax — that was
+  // clipping the top/bottom of the photo while scrolling. Keep the
+  // parallax on desktop only, where the padding has room for it.
+  const imageParallax = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [40, -40]);
 
   const rotateXValue = useMotionValue(0);
   const rotateYValue = useMotionValue(0);

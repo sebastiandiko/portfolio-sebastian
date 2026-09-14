@@ -15,6 +15,15 @@ const HeroWrapper = styled.div`
      actually visible on load. */
   height: calc(100vh + 700px);
   height: calc(100svh + 700px);
+
+  /* The pinned reveal below assumes About-Me's content fits in one
+     screen. On mobile the card stacks (photo above text) and is far
+     taller than that, so the fixed-height/overflow-hidden stage was
+     clipping the top of the photo. Drop the pin buffer and let the
+     section size to its own content instead. */
+  @media (max-width: 900px) {
+    height: auto;
+  }
 `;
 
 const HeaderContainer = styled.header`
@@ -39,6 +48,18 @@ const HeaderContainer = styled.header`
     z-index: 2;
     pointer-events: none;
   }
+
+  @media (max-width: 900px) {
+    position: relative;
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    /* No longer vertically centered (height is now auto, so
+       justify-content: center has nothing to center against) — the
+       title used to start flush at the very top edge, clipped by and
+       overlapping the language toggle button. */
+    padding: 96px 24px 40px;
+  }
 `;
 
 const ContentWrapper = styled(motion.div)`
@@ -47,6 +68,15 @@ const ContentWrapper = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   will-change: transform, opacity;
+
+  /* Cancel the scroll-linked fade/slide-out that hides the hero title
+     as About-Me is revealed over it — on mobile the two are no longer
+     overlaid, so the title should just stay put. */
+  @media (max-width: 900px) {
+    opacity: 1 !important;
+    transform: none !important;
+    order: 1;
+  }
 `;
 
 const RevealLayer = styled.div`
@@ -57,12 +87,32 @@ const RevealLayer = styled.div`
   align-items: center;
   justify-content: center;
   pointer-events: none;
+
+  /* RevealLayer is markup-order BEFORE ContentWrapper (it needs to sit
+     underneath the title on desktop, where it's an absolutely
+     positioned overlay and DOM order doesn't affect layout). Once it
+     rejoins normal flow on mobile that would render About-Me above the
+     hero title, so push it after with flex order instead of reordering
+     the markup. */
+  @media (max-width: 900px) {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    order: 2;
+  }
 `;
 
 const RevealedAboutMe = styled(motion.div)`
   width: 100%;
   pointer-events: auto;
   will-change: transform, opacity;
+
+  /* Same as ContentWrapper: on mobile About-Me is a normal in-flow
+     section, always visible, not a scroll-triggered overlay. */
+  @media (max-width: 900px) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 `;
 
 const Title = styled(motion.h1)`
