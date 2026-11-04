@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
-import { FaInstagram, FaLinkedin, FaPaperPlane } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaPaperPlane, FaEnvelope, FaRegCopy, FaCheck } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import shineHover from './shineEffect';
 import pulseGlow from './pulseEffect';
 
-const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+// Correo público que se muestra en la sección de contacto.
+const CONTACT_EMAIL = 'sebadikow@gmail.com';
+// Los mensajes del formulario se entregan vía Web3Forms al correo con el que
+// se generó la clave (https://web3forms.com). La clave es pública por diseño.
+const WEB3FORMS_KEY = process.env.REACT_APP_WEB3FORMS_KEY;
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
 const ContactSection = styled.section`
   background-color: #000000;
@@ -191,6 +193,7 @@ const StatusMessage = styled(motion.p)`
 
 const BottomSection = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top: 40px;
@@ -222,8 +225,104 @@ const SocialLinks = styled.div`
   }
 `;
 
+const MailCard = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 36px;
+  text-align: center;
+`;
+
+const MailLabel = styled.span`
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #86868b;
+`;
+
+const MailPill = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 6px 6px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+  max-width: 100%;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
+  }
+
+  a.mail {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px 8px 8px;
+    color: #ffffff;
+    font-size: clamp(0.95rem, 3.6vw, 1.15rem);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    min-width: 0;
+    word-break: break-all;
+  }
+
+  a.mail .icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #000000;
+    font-size: 0.95rem;
+  }
+
+  button {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: #a1a1a6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #000000;
+      background: #ffffff;
+    }
+  }
+`;
+
 const Contact = () => {
   const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
+  const copyTimer = useRef(null);
+  useEffect(() => () => clearTimeout(copyTimer.current), []);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
+      setCopied(true);
+      clearTimeout(copyTimer.current);
+      copyTimer.current = setTimeout(() => setCopied(false), 1800);
+    } catch (err) {
+      console.error('No se pudo copiar el correo:', err);
+    }
+  };
   const [formData, setFormData] = useState({ email: '', subject: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
 
@@ -246,28 +345,34 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      console.error('Faltan las variables de entorno de EmailJS (REACT_APP_EMAILJS_*)');
+    if (!WEB3FORMS_KEY) {
+      console.error('Falta REACT_APP_WEB3FORMS_KEY en .env.local');
       setStatus('error');
       return;
     }
 
     setStatus('sending');
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_email: formData.email,
-          subject: formData.subject,
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          from_name: 'Portfolio',
+          subject: `[Portfolio] ${formData.subject}`,
+          email: formData.email,
           message: formData.message,
-        },
-        { publicKey: EMAILJS_PUBLIC_KEY }
-      );
+          botcheck: '',
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || `HTTP ${res.status}`);
+      }
       setStatus('success');
       setFormData({ email: '', subject: '', message: '' });
     } catch (err) {
-      console.error('EmailJS error:', err);
+      console.error('Contact form error:', err);
       setStatus('error');
     }
   };
@@ -322,6 +427,7 @@ const Contact = () => {
           />
 
           <SubmitButton
+            data-magnetic
             type="submit"
             disabled={status === 'sending'}
             animate={status === 'sending' ? { scale: 1 } : { scale: [1, 1.05, 1] }}
@@ -346,6 +452,24 @@ const Contact = () => {
         </Form>
 
         <BottomSection>
+          <MailCard variants={itemVariants}>
+            <MailLabel>{t('contactDirectLabel')}</MailLabel>
+            <MailPill>
+              <a className="mail" href={`mailto:${CONTACT_EMAIL}`}>
+                <span className="icon"><FaEnvelope /></span>
+                {CONTACT_EMAIL}
+              </a>
+              <button
+                type="button"
+                onClick={copyEmail}
+                aria-label={copied ? t('contactCopied') : t('contactCopy')}
+                title={copied ? t('contactCopied') : t('contactCopy')}
+              >
+                {copied ? <FaCheck /> : <FaRegCopy />}
+              </button>
+            </MailPill>
+          </MailCard>
+
           <motion.div variants={itemVariants}>
             <SocialLinks>
               <a

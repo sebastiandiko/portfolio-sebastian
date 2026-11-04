@@ -1,0 +1,24 @@
+# Sebastian Dikowiec
+
+> Ingeniero en Sistemas de Información. Freelance remoto: automatización de procesos, chatbots, agentes de IA e integraciones para empresas. Hablo español e inglés.
+
+## Servicios
+- Automatización de procesos: workflows con n8n y herramientas similares que eliminan tareas manuales.
+- Chatbots y asistentes: bots de atención y ventas para WhatsApp, Telegram y web.
+- Agentes de IA: asistentes con modelos de lenguaje que consultan documentos y datos y usan herramientas.
+- Integraciones y APIs: conexión de CRM, planillas, bases de datos y pasarelas de pago.
+- Gestión ágil de proyectos: planificación, seguimiento y entregas por etapas.
+
+## Experiencia
+- Project Manager en Jett Labs (2026 - presente)
+- QA Analyst en Capgemini (2026 - presente)
+- Co-fundador de SFT Development (2025 - presente)
+
+## Enlaces
+- [Portafolio](https://www.sebastiandiko.info/): servicios, proyectos y contacto
+- [LinkedIn](https://www.linkedin.com/in/sebastian-dikowiec-6b9068221/)
+- [GitHub](https://github.com/sebastiandiko)
+- [SFT Development](https://sftdevelopment.com/)
+
+## Contacto
+sebadikow@gmail.com

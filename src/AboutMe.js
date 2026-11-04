@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import sebastianDefault from './assets/cutouts/sebastian-default.png';
-import sebastianHover from './assets/cutouts/sebastian-hover.png';
+import sebastianDefault from './assets/cutouts/sebastian-default.webp';
+import sebastianHover from './assets/cutouts/sebastian-hover.webp';
 
 const ambientDrift = keyframes`
   0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }

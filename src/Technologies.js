@@ -357,9 +357,9 @@ const Technologies = () => {
     <TechSection ref={sectionRef}>
       <ContentWrapper>
         <Title
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 40, filter: 'blur(14px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true, margin: "-100px" }}
         >
           {t('technologiesTitle')}

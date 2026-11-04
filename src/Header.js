@@ -238,8 +238,8 @@ const Header = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }
+    hidden: { opacity: 0, y: 40, filter: 'blur(16px)' },
+    show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] } }
   };
 
   return (
@@ -253,7 +253,7 @@ const Header = () => {
         </RevealedAboutMe>
       </RevealLayer>
 
-      <GlassButton onClick={toggleLanguage}>
+      <GlassButton data-magnetic onClick={toggleLanguage}>
         {i18n.language === 'es' ? 'English' : 'Español'}
       </GlassButton>
 

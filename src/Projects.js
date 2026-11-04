@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState, createRef } from 'react';
 import styled from 'styled-components';
-import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate, useScroll } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import shineHover from './shineEffect';
-import toqqenImg from './assets/toQQen.png';
+import toqqenImg from './assets/toQQen.webp';
 import pp1 from './assets/etl.png';
 import getpassImg from './assets/getpass.svg';
-import estebandikoImg from './assets/estebandiko.png';
-import sftdevelopmentImg from './assets/sftdevelopment.png';
-import vencemioImg from './assets/vencemio.png';
+import estebandikoImg from './assets/estebandiko.webp';
+import sftdevelopmentImg from './assets/sftdevelopment.webp';
+import vencemioImg from './assets/vencemio.webp';
 
 const ProjectSection = styled.section`
   background-color: #000000;
   color: #f5f5f7;
   padding: 120px 20px;
   position: relative;
-  overflow: hidden;
+  /* clip (no hidden): hidden would turn the section into a scroll
+     container and break the sticky stacking of the cards. */
+  overflow: clip;
 `;
 
 const ContentWrapper = styled.div`
@@ -53,11 +55,13 @@ const Title = styled(motion.h2)`
 const ProjectContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 150px;
+  gap: 22vh;
   width: 100%;
+  padding-bottom: 8vh;
 
-  @media (max-width: 768px) {
-    gap: 100px;
+  @media (max-width: 968px) {
+    gap: 80px;
+    padding-bottom: 0;
   }
 
   @media (max-width: 480px) {
@@ -65,8 +69,18 @@ const ProjectContainer = styled.div`
   }
 `;
 
+/* Desktop: each card sticks near the top and the next one slides over it,
+   building a deck. Mobile cards are taller than the viewport, so there they
+   stay as a normal flowing list. */
 const ProjectItem = styled(motion.div)`
   width: 100%;
+  transform-origin: 50% 0%;
+  will-change: transform;
+
+  @media (min-width: 969px) {
+    position: sticky;
+    top: calc(96px + var(--stack-i, 0) * 26px);
+  }
 `;
 
 const TiltWrapper = styled.div`
@@ -87,11 +101,10 @@ const TiltInner = styled(motion.div)`
   padding: 40px;
   border-radius: 24px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  /* Opaque so stacked cards fully cover the ones beneath */
+  background: #0b0b0c;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -24px 60px rgba(0,0,0,0.9), 0 20px 50px rgba(0,0,0,0.5);
   cursor: pointer;
   will-change: transform;
   transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
@@ -119,7 +132,7 @@ const TiltInner = styled(motion.div)`
   &:hover {
     box-shadow: 0 30px 60px rgba(255, 255, 255, 0.18);
     border-color: rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.04);
+    background: #111113;
   }
 
   @media (max-width: 968px) {
@@ -206,6 +219,27 @@ const TiltCard = ({ children, reverse, onClick }) => {
         )}
       </TiltInner>
     </TiltWrapper>
+  );
+};
+
+const StackCard = ({ index, nextRef, innerRef, children }) => {
+  // Progress of the NEXT card travelling up to its stuck position: while it
+  // slides over this one, this card recedes (scales down and dims).
+  const { scrollYProgress } = useScroll({
+    target: nextRef,
+    offset: ['start end', 'start 30%'],
+  });
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.93]);
+  const dim = useTransform(scrollYProgress, [0, 1], [1, 0.45]);
+  const filter = useMotionTemplate`brightness(${dim})`;
+
+  return (
+    <ProjectItem
+      ref={innerRef}
+      style={{ '--stack-i': index, scale: nextRef ? scale : 1, filter: nextRef ? filter : 'none' }}
+    >
+      {children}
+    </ProjectItem>
   );
 };
 
@@ -314,14 +348,16 @@ const links = [
 const Projects = () => {
   const { t, i18n } = useTranslation();
   const projects = t('projects', { returnObjects: true, lng: i18n.language });
+  const count = Array.isArray(projects) ? projects.length : 0;
+  const cardRefs = useMemo(() => Array.from({ length: count }, () => createRef()), [count]);
 
   return (
     <ProjectSection id="projects" key={i18n.language}>
       <ContentWrapper>
         <Title
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 40, filter: 'blur(14px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true, margin: "-100px" }}
         >
           {t('projectsTitle')}
@@ -336,12 +372,11 @@ const Projects = () => {
             };
 
             return (
-              <ProjectItem
+              <StackCard
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
+                index={index}
+                innerRef={cardRefs[index]}
+                nextRef={cardRefs[index + 1]}
               >
                 <TiltCard reverse={isReverse} onClick={openProject}>
                   <ImageBox>
@@ -371,7 +406,7 @@ const Projects = () => {
                     )}
                   </InfoContainer>
                 </TiltCard>
-              </ProjectItem>
+              </StackCard>
             );
           })}
         </ProjectContainer>

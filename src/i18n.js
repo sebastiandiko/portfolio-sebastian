@@ -8,7 +8,7 @@ i18n
       es: {
         translation: {
           "title": "Sebastian Dikowiec",
-          "subtitle": "Ingeniero en Sistemas de Información",
+          "subtitle": "Ingeniero en Sistemas. Automatización e inteligencia artificial para empresas.",
           "playVideo": "Reproducir video",
           "technologiesTitle": "Tecnologías que Utilizo",
           "experienceTitle": "Experiencia Laboral",
@@ -18,9 +18,22 @@ i18n
           "contactFormSubjectLabel": "Asunto",
           "contactFormMessageLabel": "Mensaje",
           "contactFormButton": "Contactemos",
+          "contactDirectLabel": "O escríbeme directamente",
+          "contactCopy": "Copiar correo",
+          "contactCopied": "¡Copiado!",
           "contactFormSending": "Enviando...",
           "contactFormSuccess": "¡Mensaje enviado! Te voy a responder pronto.",
           "contactFormError": "No se pudo enviar el mensaje. Probá de nuevo o escribime directamente.",
+          "servicesTitle": "Qué puedo hacer por tu negocio",
+          "servicesSubtitle": "Automatizo procesos, conecto tus sistemas y pongo inteligencia artificial a trabajar en tu operación. De la idea al servicio funcionando.",
+          "services": [
+            { "title": "Automatización de procesos", "description": "Workflows con n8n y herramientas similares que eliminan tareas manuales: carga de datos, reportes, avisos, aprobaciones y seguimiento de clientes." },
+            { "title": "Chatbots y asistentes", "description": "Bots de atención y ventas para WhatsApp, Telegram y tu web que responden consultas, califican contactos y derivan a una persona cuando hace falta." },
+            { "title": "Agentes de IA", "description": "Asistentes con modelos de lenguaje que consultan tus documentos y datos, usan herramientas y resuelven tareas reales, con control de costos y calidad." },
+            { "title": "Integraciones y APIs", "description": "Conexión entre tu CRM, planillas, bases de datos, pasarelas de pago y el resto de tus sistemas, para que la información fluya sola." },
+            { "title": "Gestión ágil del proyecto", "description": "Planificación, seguimiento y entregas por etapas, con comunicación clara. Sabés qué se está haciendo, cuánto falta y qué resultado esperar." }
+          ],
+          "servicesCta": "Contame tu caso",
           "aboutTitle": "Sobre Mí",
           "aboutDescription": "¡Hola! Soy Sebastian, <strong>Ingeniero en Sistemas de Información</strong> con una mirada que mezcla tecnología, gestión y producto. Antes de escribir código o armar un plan, me gusta entender bien el problema. ¿Cómo lo vive el usuario? ¿Dónde puede romperse algo? ¿Qué es lo que realmente hay que resolver? Esa misma curiosidad la aplico auditando calidad o coordinando un equipo.<br/><br/>Me gusta que las cosas pasen. Ordeno prioridades, acompaño cada etapa y no dejo que un proyecto se quede a mitad de camino, siempre con un enfoque <strong>ágil</strong> que prioriza que la solución funcione en la vida real.<br/><br/>Y sobre todo, me gusta conectar con clientes, con devs, con cualquiera que tenga una idea y no sepa bien cómo hacerla funcionar. ¿Tenés algo así en mente? Hablemos.",
           "changeLanguageHint": "Adaptalo a tu idioma",
@@ -110,7 +123,7 @@ i18n
       en: {
         translation: {
           "title": "Sebastian Dikowiec",
-          "subtitle": "Information Systems Engineer",
+          "subtitle": "Information Systems Engineer. Automation and AI for businesses.",
           "playVideo": "Play video",
           "technologiesTitle": "Technologies I Use",
           "experienceTitle": "Work Experience",
@@ -120,9 +133,22 @@ i18n
           "contactFormSubjectLabel": "Subject",
           "contactFormMessageLabel": "Message",
           "contactFormButton": "Let's talk",
+          "contactDirectLabel": "Or email me directly",
+          "contactCopy": "Copy email",
+          "contactCopied": "Copied!",
           "contactFormSending": "Sending...",
           "contactFormSuccess": "Message sent! I'll get back to you soon.",
           "contactFormError": "Couldn't send the message. Try again or email me directly.",
+          "servicesTitle": "What I can do for your business",
+          "servicesSubtitle": "I automate processes, connect your systems and put AI to work in your operation. From idea to a working service.",
+          "services": [
+            { "title": "Process automation", "description": "Workflows built with n8n and similar tools that remove manual work: data entry, reports, alerts, approvals and customer follow-up." },
+            { "title": "Chatbots and assistants", "description": "Support and sales bots for WhatsApp, Telegram and your website that answer questions, qualify leads and hand off to a person when needed." },
+            { "title": "AI agents", "description": "Language-model assistants that read your documents and data, use tools and complete real tasks, with cost and quality under control." },
+            { "title": "Integrations and APIs", "description": "Connecting your CRM, spreadsheets, databases, payment gateways and the rest of your stack so information flows on its own." },
+            { "title": "Agile project delivery", "description": "Planning, tracking and staged deliveries with clear communication. You always know what is being done, what is left and what to expect." }
+          ],
+          "servicesCta": "Tell me about your case",
           "aboutTitle": "About Me",
           "aboutDescription": "Hi! I'm Sebastian, an <strong>Information Systems Engineer</strong> with a perspective that blends technology, management, and product. Before writing code or putting together a plan, I like to really understand the problem. How does the user experience it? Where might something break? What actually needs solving? I bring that same curiosity to auditing quality or coordinating a team.<br/><br/>I like making things happen. I sort out priorities, support every stage, and don't let a project stall halfway through, always with an <strong>agile</strong> approach that puts real-world results first.<br/><br/>And above all, I like connecting with clients, with developers, with anyone who has an idea and isn't quite sure how to make it work. Got something like that in mind? Let's talk.",
           "changeLanguageHint": "Set your language",

@@ -70,6 +70,7 @@ const FloatingContactButton = () => {
     <AnimatePresence>
       {!hidden && (
         <Button
+          data-magnetic
           onClick={scrollToContact}
           aria-label={t('contactFormButton')}
           initial={{ opacity: 0, scale: 0.6 }}

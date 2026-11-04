@@ -3,18 +3,20 @@ import Lenis from 'lenis';
 import GlobalStyle from './GlobalStyle';
 import Header from './Header';
 import IntroVideo from './IntroVideo';
+import Services from './Services';
 import Technologies from './Technologies';
 import Experience from './Experience';
 import Projects from './Projects';
 import Contact from './Contact';
 import Footer from './Footer';
 import FloatingContactButton from './FloatingContactButton';
+import FX from './FX';
 import { setLenisInstance } from './lenisInstance';
 
 const App = () => {
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.1,
+      lerp: 0.085,
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 1.5,
@@ -38,8 +40,10 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
+      <FX />
       <Header />
       <IntroVideo />
+      <Services />
       <Technologies />
       <Experience />
       <Projects />
