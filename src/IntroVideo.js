@@ -11,7 +11,7 @@ const ringPulse = keyframes`
 `;
 
 const VideoSection = styled.section`
-  background-color: #000000;
+  background-color: var(--bg);
   padding: 40px 10px 70px;
   position: relative;
 
@@ -35,9 +35,9 @@ const Frame = styled(motion.div)`
   aspect-ratio: 16 / 9;
   border-radius: 28px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--line);
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
-  background: #0a0a0c;
+  background: var(--surface-1);
 
   @media (max-width: 480px) {
     border-radius: 0;
@@ -65,7 +65,7 @@ const Video = styled.video`
   height: 100%;
   object-fit: cover;
   display: block;
-  background: #000000;
+  background: var(--bg);
   transition: filter 0.5s ease;
   filter: ${(props) =>
     props.$isPlaying ? 'none' : 'grayscale(1) contrast(1.05) brightness(0.85)'};
@@ -105,8 +105,8 @@ const PlayCircle = styled.span`
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #ffffff;
-  color: #000000;
+  background: var(--text-hi);
+  color: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;

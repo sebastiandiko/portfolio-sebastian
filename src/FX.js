@@ -24,8 +24,8 @@ const ProgressBar = styled(motion.div)`
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), #ffffff);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+  background: linear-gradient(90deg, rgba(159, 180, 255, 0.15), var(--accent));
+  box-shadow: 0 0 12px var(--accent-glow);
   transform-origin: 0 50%;
   z-index: 9998;
   pointer-events: none;
@@ -56,7 +56,7 @@ const Spotlight = styled.div`
   transition: opacity 0.6s ease;
   background: radial-gradient(
     520px circle at var(--fx-x, 50%) var(--fx-y, 50%),
-    rgba(255, 255, 255, 0.07),
+    rgba(159, 180, 255, 0.075),
     transparent 65%
   );
   mix-blend-mode: screen;

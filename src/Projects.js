@@ -11,8 +11,8 @@ import sftdevelopmentImg from './assets/sftdevelopment.webp';
 import vencemioImg from './assets/vencemio.webp';
 
 const ProjectSection = styled.section`
-  background-color: #000000;
-  color: #f5f5f7;
+  background-color: var(--bg);
+  color: var(--text);
   padding: 120px 20px;
   position: relative;
   /* clip (no hidden): hidden would turn the section into a scroll
@@ -36,7 +36,7 @@ const Title = styled(motion.h2)`
   letter-spacing: -0.03em;
   position: relative;
   display: inline-block;
-  ${shineHover('linear-gradient(180deg, #ffffff 0%, #ffffff 200%)')}
+  ${shineHover('linear-gradient(180deg, var(--text-hi) 0%, var(--text-hi) 200%)')}
 
   &::after {
     content: '';
@@ -46,7 +46,7 @@ const Title = styled(motion.h2)`
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background: #ffffff;
+    background: var(--text-hi);
     border-radius: 2px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
@@ -102,8 +102,8 @@ const TiltInner = styled(motion.div)`
   border-radius: 24px;
   overflow: hidden;
   /* Opaque so stacked cards fully cover the ones beneath */
-  background: #0b0b0c;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
   box-shadow: 0 -24px 60px rgba(0,0,0,0.9), 0 20px 50px rgba(0,0,0,0.5);
   cursor: pointer;
   will-change: transform;
@@ -132,7 +132,7 @@ const TiltInner = styled(motion.div)`
   &:hover {
     box-shadow: 0 30px 60px rgba(255, 255, 255, 0.18);
     border-color: rgba(255, 255, 255, 0.35);
-    background: #111113;
+    background: var(--surface-2);
   }
 
   @media (max-width: 968px) {
@@ -277,7 +277,7 @@ const InfoContainer = styled(motion.div)`
 const ProjectTitle = styled.h3`
   font-size: 2.2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-hi);
   margin-bottom: 25px;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 
@@ -300,7 +300,7 @@ const DescriptionBox = styled.div`
   p {
     font-size: 1.05rem;
     line-height: 1.7;
-    color: #a1a1a6;
+    color: var(--text-2);
     margin: 0;
   }
 
@@ -315,11 +315,11 @@ const DescriptionBox = styled.div`
 `;
 
 const LinkButton = styled(motion.a)`
-  background: #ffffff;
-  color: #000000;
+  background: var(--text-hi);
+  color: var(--bg);
   padding: 12px 28px;
   border-radius: 8px;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--text-hi);
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -383,7 +383,7 @@ const Projects = () => {
                     <ProjectImage
                       src={images[index]}
                       alt={project.title}
-                      style={index === 2 ? { objectFit: 'contain', padding: '50px', backgroundColor: '#000000' } : {}}
+                      style={index === 2 ? { objectFit: 'contain', padding: '50px', backgroundColor: 'var(--bg)' } : {}}
                     />
                   </ImageBox>
 

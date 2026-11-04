@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 // Delicate one-pass shine sweep across text on hover. Resting state looks
 // identical to a normal gradient-clipped title; nothing tracks the cursor.
-const shineHover = (baseGradient = 'linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%)') => css`
+const shineHover = (baseGradient = 'linear-gradient(180deg, var(--text-hi) 0%, var(--text-2) 100%)') => css`
   background-image:
     linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.9) 50%, transparent 65%),
     ${baseGradient};

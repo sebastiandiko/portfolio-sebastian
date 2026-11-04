@@ -53,7 +53,7 @@ const MatrixRain = ({ style }) => {
     // Drawing function
     const draw = () => {
       // Semi-transparent black to create the trailing/fading effect
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+      ctx.fillStyle = 'rgba(8, 8, 10, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.font = `${fontSize}px monospace`;

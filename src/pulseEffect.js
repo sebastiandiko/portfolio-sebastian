@@ -7,7 +7,7 @@ const glowPulse = keyframes`
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.25);
   }
   50% {
-    box-shadow: 0 0 24px 6px rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 24px 6px var(--accent-soft);
   }
 `;
 

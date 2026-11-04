@@ -36,7 +36,7 @@ const HeaderContainer = styled.header`
   position: sticky;
   top: 0;
   text-align: center;
-  background-color: #000000;
+  background-color: var(--bg);
   overflow: hidden;
 
   /* Gradient overlay to focus center and darken edges */
@@ -120,7 +120,7 @@ const Title = styled(motion.h1)`
   font-weight: 700;
   letter-spacing: -0.04em;
   margin-bottom: 20px;
-  ${shineHover('linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%)')}
+  ${shineHover('linear-gradient(180deg, var(--text-hi) 0%, var(--text-2) 100%)')}
   line-height: 1.1;
 
   @media (max-width: 480px) {
@@ -131,7 +131,7 @@ const Title = styled(motion.h1)`
 const Subtitle = styled(motion.h2)`
   font-size: clamp(1.2rem, 3vw, 1.8rem);
   font-weight: 400;
-  color: #86868b;
+  color: var(--text-2);
   max-width: 600px;
   line-height: 1.5;
 `;
@@ -142,8 +142,8 @@ const GlassButton = styled.button`
   right: 40px;
   padding: 10px 24px;
   background: rgba(255, 255, 255, 0.05);
-  color: #f5f5f7;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  border: 1px solid var(--line);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   cursor: pointer;
@@ -171,7 +171,7 @@ const HintBubble = styled(motion.div)`
   top: 80px;
   right: 40px;
   background: rgba(255, 255, 255, 0.1);
-  color: #f5f5f7;
+  color: var(--text);
   padding: 12px 20px;
   border-radius: 12px;
   font-size: 0.9rem;
@@ -179,7 +179,7 @@ const HintBubble = styled(motion.div)`
   cursor: pointer;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
   z-index: 10;
 
   &::after {
@@ -189,7 +189,7 @@ const HintBubble = styled(motion.div)`
     right: 32px;
     border-width: 0 8px 8px 8px;
     border-style: solid;
-    border-color: transparent transparent rgba(255, 255, 255, 0.1) transparent;
+    border-color: transparent transparent var(--line) transparent;
   }
 
   @media (max-width: 480px) {

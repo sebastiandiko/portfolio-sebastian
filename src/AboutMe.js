@@ -12,8 +12,8 @@ const ambientDrift = keyframes`
 `;
 
 const AboutSection = styled.section`
-  background-color: #000000;
-  color: #f5f5f7;
+  background-color: var(--bg);
+  color: var(--text);
   text-align: center;
   padding: 120px 20px;
   position: relative;
@@ -41,7 +41,7 @@ const AboutLayout = styled(motion.div)`
   justify-content: space-between;
   gap: 60px;
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
   border-radius: 30px;
   padding: 60px;
   backdrop-filter: blur(20px);
@@ -161,10 +161,10 @@ const TextContainer = styled.div`
 const Paragraph = styled(motion.p)`
   font-size: 1.15rem;
   line-height: 1.8;
-  color: #a1a1a6;
+  color: var(--text-2);
 
   strong {
-    color: #ffffff;
+    color: var(--text-hi);
     font-weight: 600;
   }
 

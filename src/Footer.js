@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 const FooterContainer = styled.footer`
-  background-color: #000000;
-  color: #86868b;
+  background-color: var(--bg);
+  color: var(--text-2);
   text-align: center;
   padding: 40px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid var(--line);
   font-size: 0.9rem;
 `;
 

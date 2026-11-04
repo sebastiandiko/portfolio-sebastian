@@ -5,6 +5,7 @@ import { FaInstagram, FaLinkedin, FaPaperPlane, FaEnvelope, FaRegCopy, FaCheck }
 import { useTranslation } from 'react-i18next';
 import shineHover from './shineEffect';
 import pulseGlow from './pulseEffect';
+import ContactSuccessModal from './ContactSuccessModal';
 
 // Correo público que se muestra en la sección de contacto.
 const CONTACT_EMAIL = 'sebadikow@gmail.com';
@@ -12,10 +13,11 @@ const CONTACT_EMAIL = 'sebadikow@gmail.com';
 // se generó la clave (https://web3forms.com). La clave es pública por diseño.
 const WEB3FORMS_KEY = process.env.REACT_APP_WEB3FORMS_KEY;
 const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/sebastian-dikowiec-6b9068221/';
 
 const ContactSection = styled.section`
-  background-color: #000000;
-  color: #f5f5f7;
+  background-color: var(--bg);
+  color: var(--text);
   padding: 120px 20px;
   position: relative;
   overflow: hidden;
@@ -54,7 +56,7 @@ const ContentWrapper = styled(motion.div)`
   position: relative;
   z-index: 2;
   background: rgba(15, 15, 15, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--line-strong);
   padding: 80px 60px;
   border-radius: 40px;
   backdrop-filter: blur(25px);
@@ -84,12 +86,12 @@ const Title = styled(motion.h2)`
   letter-spacing: -0.04em;
   line-height: 1.1;
   display: inline-block;
-  ${shineHover('linear-gradient(135deg, #ffffff 0%, #ffffff 100%)')}
+  ${shineHover('linear-gradient(135deg, var(--text-hi) 0%, var(--text-hi) 100%)')}
 `;
 
 const Subtitle = styled(motion.p)`
   font-size: 1.2rem;
-  color: #a1a1a6;
+  color: var(--text-2);
   max-width: 500px;
   margin: 0 auto;
   line-height: 1.6;
@@ -116,10 +118,10 @@ const FormRow = styled.div`
 const fieldStyles = `
   width: 100%;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--line);
   border-radius: 14px;
   padding: 16px 18px;
-  color: #ffffff;
+  color: var(--text-hi);
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.3s ease;
@@ -129,7 +131,7 @@ const fieldStyles = `
   }
 
   &:hover {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--line-strong);
   }
 
   &:focus {
@@ -152,11 +154,11 @@ const FieldTextArea = styled.textarea`
 `;
 
 const SubmitButton = styled(motion.button)`
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--text-hi);
+  color: var(--bg);
   padding: 16px 32px;
   border-radius: 14px;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--text-hi);
   font-size: 1.05rem;
   font-weight: 600;
   display: inline-flex;
@@ -197,7 +199,7 @@ const BottomSection = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--line);
 `;
 
 const SocialLinks = styled.div`
@@ -205,7 +207,7 @@ const SocialLinks = styled.div`
   gap: 20px;
 
   a {
-    color: #a1a1a6;
+    color: var(--text-2);
     font-size: 1.6rem;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
@@ -217,8 +219,8 @@ const SocialLinks = styled.div`
     background: rgba(255, 255, 255, 0.05);
 
     &:hover {
-      color: #000000;
-      background: #ffffff;
+      color: var(--bg);
+      background: var(--text-hi);
       transform: translateY(-5px) scale(1.1);
       box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
     }
@@ -238,7 +240,7 @@ const MailLabel = styled.span`
   font-size: 0.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #86868b;
+  color: var(--text-2);
 `;
 
 const MailPill = styled.div`
@@ -265,7 +267,7 @@ const MailPill = styled.div`
     align-items: center;
     gap: 12px;
     padding: 8px 14px 8px 8px;
-    color: #ffffff;
+    color: var(--text-hi);
     font-size: clamp(0.95rem, 3.6vw, 1.15rem);
     font-weight: 500;
     letter-spacing: 0.01em;
@@ -281,8 +283,8 @@ const MailPill = styled.div`
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: #ffffff;
-    color: #000000;
+    background: var(--text-hi);
+    color: var(--bg);
     font-size: 0.95rem;
   }
 
@@ -296,13 +298,13 @@ const MailPill = styled.div`
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: transparent;
-    color: #a1a1a6;
+    color: var(--text-2);
     cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
-      color: #000000;
-      background: #ffffff;
+      color: var(--bg);
+      background: var(--text-hi);
     }
   }
 `;
@@ -325,6 +327,7 @@ const Contact = () => {
   };
   const [formData, setFormData] = useState({ email: '', subject: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [showThanks, setShowThanks] = useState(false);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -370,6 +373,7 @@ const Contact = () => {
         throw new Error(data.message || `HTTP ${res.status}`);
       }
       setStatus('success');
+      setShowThanks(true);
       setFormData({ email: '', subject: '', message: '' });
     } catch (err) {
       console.error('Contact form error:', err);
@@ -439,11 +443,6 @@ const Contact = () => {
             {status === 'sending' ? t('contactFormSending') : t('contactFormButton')}
           </SubmitButton>
 
-          {status === 'success' && (
-            <StatusMessage initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              {t('contactFormSuccess')}
-            </StatusMessage>
-          )}
           {status === 'error' && (
             <StatusMessage $isError initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               {t('contactFormError')}
@@ -481,7 +480,7 @@ const Contact = () => {
                 <FaInstagram />
               </a>
               <a
-                href="https://www.linkedin.com/in/sebastian-dikowiec-6b9068221/"
+                href={LINKEDIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -492,6 +491,7 @@ const Contact = () => {
           </motion.div>
         </BottomSection>
       </ContentWrapper>
+      <ContactSuccessModal open={showThanks} onClose={() => setShowThanks(false)} linkedinUrl={LINKEDIN_URL} />
     </ContactSection>
   );
 };

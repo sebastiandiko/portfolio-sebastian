@@ -13,8 +13,8 @@ const Button = styled(motion.button)`
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: #ffffff;
-  color: #000000;
+  background: var(--text-hi);
+  color: var(--bg);
   border: none;
   display: flex;
   align-items: center;
