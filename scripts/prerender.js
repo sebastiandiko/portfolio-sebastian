@@ -37,11 +37,24 @@ const serve = () =>
   });
 
 (async () => {
+  // En Vercel (Linux sin librerías de Chrome) se usa un Chromium empaquetado
+  // para serverless; en local se usa el Chrome que descarga puppeteer.
   let puppeteer;
+  let launchOptions = { headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] };
   try {
-    puppeteer = require('puppeteer');
+    if (process.env.VERCEL || process.env.CI) {
+      const chromium = (await import('@sparticuz/chromium')).default;
+      puppeteer = require('puppeteer-core');
+      launchOptions = {
+        headless: 'shell',
+        args: chromium.args,
+        executablePath: await chromium.executablePath(),
+      };
+    } else {
+      puppeteer = require('puppeteer');
+    }
   } catch (e) {
-    console.warn('[prerender] puppeteer no está instalado: se omite el pre-render.');
+    console.warn('[prerender] no hay navegador disponible: se omite el pre-render.', e.message);
     return;
   }
 
@@ -49,7 +62,7 @@ const serve = () =>
   const { port } = server.address();
   let browser;
   try {
-    browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    browser = await puppeteer.launch(launchOptions);
     const page = await browser.newPage();
     await page.setViewport({ width: 1440, height: 900 });
     // El fetch de la fuente de Google no debe bloquear el snapshot si no hay red.
