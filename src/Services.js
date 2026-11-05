@@ -112,10 +112,10 @@ const Card = styled.article`
   justify-content: flex-start;
   overflow: hidden;
   background:
-    radial-gradient(520px circle at 85% 0%, rgba(159, 180, 255, calc(0.04 + var(--f) * 0.16)), transparent 60%),
+    radial-gradient(520px circle at 85% 0%, rgba(111, 227, 193, calc(0.04 + var(--f) * 0.16)), transparent 60%),
     linear-gradient(165deg, var(--surface-2) 0%, var(--surface-1) 70%);
   border: 1px solid color-mix(in srgb, var(--accent) calc(var(--f) * 38%), rgba(232, 234, 255, 0.09));
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 calc(var(--f) * 60px) rgba(159, 180, 255, calc(var(--f) * 0.14));
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 calc(var(--f) * 60px) rgba(111, 227, 193, calc(var(--f) * 0.14));
   scroll-snap-align: center;
   --o: 0;
   opacity: calc(0.4 + var(--f) * 0.6);
@@ -148,7 +148,7 @@ const VisualPanel = styled.div`
   overflow: hidden;
   border: 1px solid var(--line);
   background:
-    radial-gradient(260px circle at 50% 55%, rgba(159, 180, 255, calc(0.06 + var(--f) * 0.12)), transparent 70%),
+    radial-gradient(260px circle at 50% 55%, rgba(111, 227, 193, calc(0.06 + var(--f) * 0.12)), transparent 70%),
     linear-gradient(rgba(232, 234, 255, 0.035) 1px, transparent 1px) 0 0 / 100% 22px,
     linear-gradient(90deg, rgba(232, 234, 255, 0.035) 1px, transparent 1px) 0 0 / 22px 100%,
     rgba(8, 8, 10, 0.55);
@@ -172,7 +172,7 @@ const IconBadge = styled.div`
   color: color-mix(in srgb, var(--accent) calc(50% + var(--f) * 50%), var(--text-2));
   background: rgba(8, 8, 10, 0.7);
   border: 1px solid color-mix(in srgb, var(--accent) calc(var(--f) * 50%), rgba(232, 234, 255, 0.14));
-  box-shadow: 0 0 calc(var(--f) * 22px) rgba(159, 180, 255, calc(var(--f) * 0.3));
+  box-shadow: 0 0 calc(var(--f) * 22px) rgba(111, 227, 193, calc(var(--f) * 0.3));
 `;
 
 const Body = styled.div`
@@ -194,7 +194,7 @@ const Chip = styled.span`
   border-radius: 999px;
   color: color-mix(in srgb, var(--accent) calc(var(--f) * 100%), var(--text-2));
   border: 1px solid color-mix(in srgb, var(--accent) calc(var(--f) * 40%), rgba(232, 234, 255, 0.14));
-  background: rgba(159, 180, 255, calc(0.03 + var(--f) * 0.07));
+  background: rgba(111, 227, 193, calc(0.03 + var(--f) * 0.07));
 `;
 
 const CardTitle = styled.h3`
@@ -214,7 +214,7 @@ const CardText = styled.p`
 const CtaCard = styled(Card)`
   align-items: stretch;
   background:
-    radial-gradient(640px circle at 20% 100%, rgba(159, 180, 255, calc(0.08 + var(--f) * 0.2)), transparent 65%),
+    radial-gradient(640px circle at 20% 100%, rgba(111, 227, 193, calc(0.08 + var(--f) * 0.2)), transparent 65%),
     linear-gradient(165deg, var(--surface-2) 0%, var(--surface-1) 75%);
 `;
 
@@ -589,96 +589,61 @@ const ServicesDesktop = () => {
 /*  tarjeta desde abajo y hunde las anteriores en profundidad.          */
 /* ------------------------------------------------------------------ */
 
-const StackSticky = styled.div`
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  perspective: 1100px;
-`;
-
-const StackStage = styled.div`
-  position: relative;
-  width: min(86vw, 360px);
-  height: min(64svh, 480px);
-`;
-
-const StackItem = styled(motion.div)`
-  position: absolute;
-  inset: 0;
-  will-change: transform, opacity;
-  transform-origin: 50% 100%;
-`;
-
-const StackCard = styled(Card)`
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  transform: none;
-`;
-
-const StackCta = styled(CtaCard)`
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  transform: none;
-`;
-
-const StackProgress = styled.div`
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+const FlowList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  z-index: 5;
+  align-items: center;
+  gap: 26px;
+  padding: 10px 0 40px;
 `;
 
-const StackDot = styled(motion.span)`
-  width: 4px;
-  height: 18px;
-  border-radius: 4px;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent-glow);
+const FlowItem = styled(motion.div)`
+  width: min(88vw, 380px);
+  height: min(66svh, 500px);
+  min-height: 440px;
+  will-change: transform, opacity, clip-path;
 `;
 
-const StackLayer = ({ index, q, count, children }) => {
-  const rel = useTransform(q, (v) => index - v); // >0: aún no llegó, <0: ya pasó
-  const y = useTransform(rel, (r) => {
-    if (r > 0) return Math.min(r, 1.2) * (typeof window !== 'undefined' ? window.innerHeight : 800) * 0.95;
-    return Math.max(r, -3) * 16;
-  });
-  const scale = useTransform(rel, (r) => (r > 0 ? 1 : 1 + Math.max(r, -3) * 0.06));
-  const rotateX = useTransform(rel, (r) => (r > 0 ? Math.min(r, 1) * 16 : 0));
-  const opacity = useTransform(rel, (r) => (r > 1.25 ? 0 : r < -2.6 ? 0 : 1));
-  const filter = useTransform(rel, (r) => `brightness(${r < 0 ? Math.max(0.35, 1 + Math.max(r, -3) * 0.22) : 1})`);
+const FlowCard = styled(Card)`
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transform: none;
+`;
+
+const FlowCta = styled(CtaCard)`
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transform: none;
+`;
+
+/* Cada tarjeta se "revela" con el scroll: sube, se abre desde el centro
+   con un recorte suave y se asienta; al irse se aleja un poco. */
+const FlowReveal = ({ index, children }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const p = useSpring(scrollYProgress, { stiffness: 140, damping: 28, mass: 0.4 });
+  const y = useTransform(p, [0, 0.3, 1], [90, 0, -30]);
+  const scale = useTransform(p, [0, 0.3, 0.7, 1], [0.9, 1, 1, 0.94]);
+  const opacity = useTransform(p, [0, 0.16, 0.8, 1], [0, 1, 1, 0.35]);
+  const rotate = useTransform(p, [0, 0.3], [index % 2 ? 3 : -3, 0], { clamp: true });
+  const clipPath = useTransform(p, [0, 0.3], [
+    'inset(22% 10% 0% 10% round 28px)',
+    'inset(0% 0% 0% 0% round 28px)',
+  ]);
+  const blur = useTransform(p, [0, 0.2], ['blur(8px)', 'blur(0px)']);
   return (
-    <StackItem style={{ y, scale, rotateX, opacity, filter, zIndex: index }} aria-hidden={index >= count ? 'true' : undefined}>
+    <FlowItem ref={ref} style={{ y, scale, opacity, rotate, clipPath, filter: blur }}>
       {children}
-    </StackItem>
+    </FlowItem>
   );
-};
-
-const StackDotItem = ({ index, q }) => {
-  const o = useTransform(q, (v) => Math.max(0.18, 1 - Math.abs(v - index)));
-  return <StackDot style={{ opacity: o }} />;
 };
 
 const ServicesMobile = () => {
   const { t } = useTranslation();
   const items = t('services', { returnObjects: true });
   const list = Array.isArray(items) ? items : [];
-  const count = list.length + 1; // + tarjeta final
-  const pinRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({ target: pinRef, offset: ['start start', 'end end'] });
-  const eased = useTransform(scrollYProgress, [0.03, 0.96], [0, 1], { clamp: true });
-  const p = useSpring(eased, { stiffness: 130, damping: 26, mass: 0.4 });
-  const q = useTransform(p, (v) => v * (count - 1));
 
   const goContact = () => {
     const el = document.getElementById('contact');
@@ -695,29 +660,20 @@ const ServicesMobile = () => {
         <Subtitle {...reveal}>{t('servicesSubtitle')}</Subtitle>
       </Intro>
 
-      <div ref={pinRef} style={{ height: `calc(${(count - 1) * 78}svh + 100svh)` }}>
-        <StackSticky>
-          <StackProgress aria-hidden="true">
-            {Array.from({ length: count }).map((_, i) => (
-              <StackDotItem key={i} index={i} q={q} />
-            ))}
-          </StackProgress>
-          <StackStage>
-            {list.map((item, i) => (
-              <StackLayer key={item.title} index={i} q={q} count={count}>
-                <StackCard style={{ '--f': 1 }}>
-                  <ServiceBody item={item} index={i} />
-                </StackCard>
-              </StackLayer>
-            ))}
-            <StackLayer index={list.length} q={q} count={count}>
-              <StackCta style={{ '--f': 1 }}>
-                <CtaBody t={t} goContact={goContact} />
-              </StackCta>
-            </StackLayer>
-          </StackStage>
-        </StackSticky>
-      </div>
+      <FlowList>
+        {list.map((item, i) => (
+          <FlowReveal key={item.title} index={i}>
+            <FlowCard style={{ '--f': 1 }}>
+              <ServiceBody item={item} index={i} />
+            </FlowCard>
+          </FlowReveal>
+        ))}
+        <FlowReveal index={list.length}>
+          <FlowCta style={{ '--f': 1 }}>
+            <CtaBody t={t} goContact={goContact} />
+          </FlowCta>
+        </FlowReveal>
+      </FlowList>
     </Section>
   );
 };

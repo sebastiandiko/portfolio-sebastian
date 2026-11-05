@@ -44,6 +44,10 @@ const AboutLayout = styled(motion.div)`
   border: 1px solid var(--line);
   border-radius: 30px;
   padding: 60px;
+  @media (min-width: 901px) {
+    padding: 40px 60px;
+    margin-top: 40px;
+  }
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
@@ -71,6 +75,13 @@ const ImageContainer = styled.div`
   flex-shrink: 0;
   width: 320px;
   position: relative;
+
+  /* En escritorio la tarjeta vive dentro de una escena de una sola pantalla:
+     la foto (alto = 2.4 x ancho) se ajusta al alto disponible para no
+     quedar tapada por la barra de navegación ni cortada abajo. */
+  @media (min-width: 901px) {
+    width: clamp(150px, calc((100svh - 230px) / 2.4), 320px);
+  }
 
   /* perspective + preserve-3d combined with backdrop-filter on a
      touchscreen (no real hover) is a known Safari/Chrome mobile bug
@@ -210,7 +221,7 @@ const AboutMe = () => {
   };
 
   return (
-    <AboutSection ref={sectionRef}>
+    <AboutSection id="about" ref={sectionRef}>
       <ContentWrapper>
         <AboutLayout>
           <ImageContainer

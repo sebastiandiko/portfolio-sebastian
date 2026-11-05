@@ -67,7 +67,7 @@ const Svg = styled.svg`
     fill: rgba(232, 234, 255, 0.16);
   }
   .glow {
-    filter: drop-shadow(0 0 6px rgba(159, 180, 255, 0.7));
+    filter: drop-shadow(0 0 6px rgba(111, 227, 193, 0.7));
   }
 
   @media (prefers-reduced-motion: reduce) {

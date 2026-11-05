@@ -94,7 +94,7 @@ const AmbientGlow = styled.div`
   left: 50%;
   width: 220%;
   height: 220%;
-  background: radial-gradient(circle, rgba(159, 180, 255, 0.09) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(111, 227, 193, 0.09) 0%, transparent 65%);
   filter: blur(10px);
   animation: ${ambientDrift} 7s ease-in-out infinite;
   pointer-events: none;
@@ -243,7 +243,7 @@ const TechCard = styled.div`
   transform: translateX(calc(var(--f) * 10px)) scale(calc(0.94 + var(--f) * 0.06));
   border-color: color-mix(in srgb, var(--accent) calc(var(--f) * 45%), rgba(232, 234, 255, 0.09));
   background: rgba(232, 234, 255, calc(0.02 + var(--f) * 0.05));
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 calc(var(--f) * 28px) rgba(159, 180, 255, calc(var(--f) * 0.16));
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 calc(var(--f) * 28px) rgba(111, 227, 193, calc(var(--f) * 0.16));
   cursor: default;
 
   h3 {
@@ -644,7 +644,7 @@ const TechDesktop = () => {
   }, [reduced]);
 
   return (
-    <TechSection ref={sectionRef}>
+    <TechSection id="technologies" ref={sectionRef}>
       <ContentWrapper>
         <Title
           initial={{ opacity: 0, y: 40, filter: 'blur(14px)' }}
@@ -749,7 +749,7 @@ const MobileKnife = styled(motion.div)`
 const MobileGlow = styled(motion.div)`
   position: absolute;
   inset: -40%;
-  background: radial-gradient(circle, rgba(159, 180, 255, 0.16) 0%, transparent 62%);
+  background: radial-gradient(circle, rgba(111, 227, 193, 0.16) 0%, transparent 62%);
   pointer-events: none;
 `;
 
@@ -778,11 +778,11 @@ const MobileTechScene = () => {
   const metrics = useRef({ tops: [], h: 0, box: 0, first: 0, last: 0 });
   const trackY = useMotionValue(0);
 
-  const { scrollYProgress } = useScroll({ target: pinRef, offset: ['start start', 'end end'] });
+  const { scrollYProgress } = useScroll({ target: pinRef, offset: ['start end', 'end end'] });
   const p = useSpring(scrollYProgress, { stiffness: 120, damping: 26, mass: 0.4 });
-  const assemble = useTransform(p, [0.02, 0.36], [0, 1], { clamp: true });
-  const listP = useTransform(p, [0.34, 0.97], [0, 1], { clamp: true });
-  const knifeScale = useTransform(p, [0, 0.36, 1], [0.92, 1, 0.9]);
+  const assemble = useTransform(p, [0, 0.33], [0, 1], { clamp: true });
+  const listP = useTransform(p, [0.32, 0.97], [0, 1], { clamp: true });
+  const knifeScale = useTransform(p, [0, 0.33, 1], [0.92, 1, 0.9]);
   const glowOpacity = useTransform(assemble, [0.6, 1], [0, 1]);
 
   const applyFocus = (y) => {
@@ -873,7 +873,7 @@ const Technologies = () => {
   if (!mobile || reduced) return <TechDesktop />;
 
   return (
-    <MobileSection>
+    <MobileSection id="technologies">
       <MobileHead>
         <Title
           initial={{ opacity: 0, y: 40, filter: 'blur(14px)' }}

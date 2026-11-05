@@ -45,10 +45,10 @@ const Dialog = styled(motion.div)`
   outline: none;
   will-change: transform, opacity;
   background:
-    radial-gradient(420px circle at 50% 0%, rgba(159, 180, 255, 0.16), transparent 65%),
+    radial-gradient(420px circle at 50% 0%, rgba(111, 227, 193, 0.16), transparent 65%),
     linear-gradient(165deg, var(--surface-2) 0%, var(--surface-1) 75%);
   border: 1px solid var(--line-strong);
-  box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.9), 0 0 60px rgba(159, 180, 255, 0.1);
+  box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.9), 0 0 60px rgba(111, 227, 193, 0.1);
 
   &::before {
     content: '';
@@ -117,7 +117,7 @@ const Core = styled.div`
   display: grid;
   place-items: center;
   color: var(--accent);
-  background: rgba(159, 180, 255, 0.1);
+  background: rgba(111, 227, 193, 0.1);
   border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
   box-shadow: 0 0 36px var(--accent-glow);
 `;

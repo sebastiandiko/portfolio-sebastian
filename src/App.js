@@ -11,6 +11,7 @@ import Contact from './Contact';
 import Footer from './Footer';
 import FloatingContactButton from './FloatingContactButton';
 import FX from './FX';
+import Navbar from './Navbar';
 import { setLenisInstance } from './lenisInstance';
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
     <>
       <GlobalStyle />
       <FX />
+      <Navbar />
       <Header />
       <IntroVideo />
       <Services />

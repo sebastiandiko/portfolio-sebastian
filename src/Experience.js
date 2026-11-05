@@ -308,7 +308,7 @@ const Experience = () => {
   const fill = useSpring(scrollYProgress, { stiffness: 90, damping: 22, mass: 0.5 });
 
   return (
-    <ExperienceSection>
+    <ExperienceSection id="experience">
       <ContentWrapper>
         <Title
           initial={{ opacity: 0, y: 40, filter: 'blur(14px)' }}

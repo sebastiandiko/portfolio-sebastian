@@ -15,9 +15,9 @@ const GlobalStyle = createGlobalStyle`
     --text-3: #7c7c87;
 
     /* Único acento: azul hielo desaturado, usado con mucha moderación */
-    --accent: #9fb4ff;
-    --accent-soft: rgba(159, 180, 255, 0.16);
-    --accent-glow: rgba(159, 180, 255, 0.35);
+    --accent: #6fe3c1;
+    --accent-soft: rgba(111, 227, 193, 0.16);
+    --accent-glow: rgba(111, 227, 193, 0.35);
 
     --line: rgba(232, 234, 255, 0.09);
     --line-strong: rgba(232, 234, 255, 0.18);
